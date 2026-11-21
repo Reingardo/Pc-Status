@@ -1,6 +1,6 @@
 # PC Status
 
-**Monitor de hardware para Windows con diseño propio**, inspirado en programas como NZXT CAM pero totalmente personalizable: medidores animados en tiempo real, inventario completo del PC, prueba de velocidad de internet y 6 temas con estilos distintos.
+**Monitor de hardware para Windows con diseño propio**, inspirado en programas como NZXT CAM pero totalmente personalizable: medidores animados en tiempo real, inventario completo del PC, procesos que se pueden finalizar, alertas de temperatura con notificaciones, prueba de velocidad de internet, 6 temas con estilos distintos y 9 idiomas.
 
 Hecho con **Tauri 2 (Rust)**, **React + Tailwind + Motion** y un pequeño proceso en **.NET con LibreHardwareMonitor** para leer los sensores.
 
@@ -36,7 +36,8 @@ No necesitas instalar nada más: el instalador incluye todo (la app, el lector d
 | | |
 |---|---|
 | [![Panel](docs/screenshots/panel.png)](#panel-monitoreo-en-tiempo-real) **📊 Panel**: CPU, GPU, RAM, núcleos, red, ventiladores y discos en tiempo real, con medidores animados y gráficas de 60 s. | [![Mi PC](docs/screenshots/mi-pc.png)](#mi-pc-inventario-de-hardware) **🖥️ Mi PC**: inventario completo del hardware: procesador, gráfica, placa y BIOS, RAM por ranura, discos, pantallas, red y audio. |
-| [![Speedtest](docs/screenshots/speedtest.png)](#speedtest-velocidad-de-internet) **🚀 Speedtest**: ping, jitter, descarga y subida con velocímetro, menú de tipo y duración, valoración e historial. | [![Ajustes](docs/screenshots/ajustes.png)](#ajustes-y-temas) **🎨 Temas**: 6 estilos distintos (Neón, Cyberpunk, Minimal, Aurora, Terminal y Claro), con brillo ajustable y opción sin animaciones. |
+| [![Procesos](docs/screenshots/procesos.png)](#procesos-qué-consume-recursos) **⚙️ Procesos**: qué aplicaciones consumen CPU, RAM y disco, con buscador y botón para finalizarlas. | [![Alertas](docs/screenshots/alertas.png)](#alertas-de-temperatura) **🔔 Alertas**: notificación de Windows si la CPU, la GPU o un disco se calientan demasiado, con historial y punto rojo en las nuevas. |
+| [![Speedtest](docs/screenshots/speedtest.png)](#speedtest-velocidad-de-internet) **🚀 Speedtest**: ping, jitter, descarga y subida con velocímetro, menú de tipo y duración, valoración e historial. | [![Ajustes](docs/screenshots/ajustes.png)](#ajustes-temas-e-idiomas) **🎨 Temas e idiomas**: 6 estilos distintos y 9 idiomas, con brillo ajustable y opción sin animaciones. |
 
 ---
 
@@ -46,8 +47,10 @@ No necesitas instalar nada más: el instalador incluye todo (la app, el lector d
 - [Funciones](#funciones)
   - [Panel: monitoreo en tiempo real](#panel-monitoreo-en-tiempo-real)
   - [Mi PC: inventario de hardware](#mi-pc-inventario-de-hardware)
+  - [Procesos: qué consume recursos](#procesos-qué-consume-recursos)
+  - [Alertas de temperatura](#alertas-de-temperatura)
   - [Speedtest: velocidad de internet](#speedtest-velocidad-de-internet)
-  - [Ajustes y temas](#ajustes-y-temas)
+  - [Ajustes, temas e idiomas](#ajustes-temas-e-idiomas)
 - [Cómo funciona por dentro](#cómo-funciona-por-dentro)
 - [Instalación y uso](#instalación-y-uso)
 - [Personalizar](#personalizar)
@@ -93,6 +96,39 @@ Detecta **todos los componentes** del equipo en menos de un segundo:
 
 El botón **"Detectar de nuevo"** vuelve a escanear el hardware sin reiniciar la app.
 
+### Procesos: qué consume recursos
+
+![Procesos](docs/screenshots/procesos.png)
+
+Lista de **todos los procesos en ejecución**, actualizada cada 2 segundos (solo mientras la pestaña está abierta, para no gastar recursos):
+
+- **CPU** (% del procesador completo), **RAM** y **disco** (lectura + escritura por segundo), con barras para comparar de un vistazo. Los valores altos se marcan en rojo.
+- **Agrupar por aplicación**: junta todos los procesos de una app (por ejemplo las pestañas de Chrome, `×4`) y suma su consumo.
+- **Buscar** por nombre o PID y **ordenar** pulsando el título de cada columna.
+- **Finalizar**: pide confirmación indicando el nombre y cuántos procesos se cerrarán. Si la app está agrupada, cierra todos sus procesos.
+- **Protegidos**: los procesos esenciales de Windows (`svchost`, `csrss`, `explorer`, `dwm`…) y la propia PC Status no se pueden finalizar desde aquí.
+- Con el ratón encima de la tabla **el orden se congela**, para que una fila no se mueva justo cuando vas a pulsar "Finalizar".
+
+### Alertas de temperatura
+
+![Alertas](docs/screenshots/alertas.png)
+
+Si un componente se calienta más de lo recomendado, PC Status:
+
+1. Muestra una **notificación de Windows**, aunque la app esté minimizada.
+2. Guarda la alerta en la pestaña **Alertas** con un **punto rojo** al inicio mientras no la hayas visto. La pestaña también muestra un punto rojo cuando hay alertas nuevas.
+
+| Componente | Límite recomendado | Por qué |
+|---|---|---|
+| Procesador | 85 °C | la mayoría reduce su velocidad cerca de 90–95 °C |
+| Gráfica | 83 °C | límite habitual antes de que baje su frecuencia |
+| Discos | 65 °C | los SSD NVMe se protegen a partir de unos 70 °C |
+
+- Los límites se pueden **ajustar** con deslizadores y restablecer a los recomendados.
+- Una alerta salta cuando la temperatura **supera el límite más de 5 segundos** (no por picos de un instante) y **no se repite** hasta que baja 3 °C del límite.
+- Botón **"Probar notificación"** para comprobar que las notificaciones funcionan.
+- Las notificaciones o las alertas se pueden desactivar.
+
 ### Speedtest: velocidad de internet
 
 ![Speedtest](docs/screenshots/speedtest.png)
@@ -120,7 +156,7 @@ Prueba de velocidad completa con **velocímetro animado** (escala 0–1000 Mb/s 
 
 Los primeros 1,5 s de cada fase no cuentan para el resultado (es el arranque de TCP). La medición la hace **Rust**, no el navegador, para que sea precisa. La prueba sigue aunque cambies de pestaña.
 
-### Ajustes y temas
+### Ajustes, temas e idiomas
 
 El **engranaje ⚙️** (arriba a la derecha) abre el panel de ajustes:
 
@@ -133,6 +169,10 @@ Cada tema cambia **colores, esquinas, intensidad del brillo, fuentes, fondo y es
 | **Cyberpunk**: amarillo y magenta, esquinas cortadas, franja lateral de color, fuente Orbitron, rejilla y líneas de CRT ![Cyberpunk](docs/screenshots/tema-cyberpunk.png) | **Terminal**: verde fósforo, todo monoespaciado, sin esquinas redondeadas y con efecto de monitor CRT ![Terminal](docs/screenshots/tema-terminal.png) |
 | **Aurora**: pasteles suaves, muy redondeado, vidrio difuminado y fondo de aurora boreal ![Aurora](docs/screenshots/tema-aurora.png) | **Claro**: fondo claro con tarjetas blancas, para el día ![Claro](docs/screenshots/tema-claro.png) |
 | **Minimal**: plano y gris, sin brillos, con un solo acento azul ![Minimal](docs/screenshots/tema-minimal.png) | **Neón** (por defecto): vidrio oscuro con brillos cian y violeta ![Neón](docs/screenshots/panel.png) |
+
+**Idiomas:** Español, English, Português, Français, Deutsch, Italiano, Русский, 中文 y 日本語. La primera vez se usa el idioma de Windows si está disponible.
+
+![PC Status en inglés con el tema Aurora](docs/screenshots/idioma-ingles.png)
 
 Además:
 - **Intensidad del brillo**: 0–200 % sobre el brillo propio del tema.
@@ -158,13 +198,18 @@ flowchart LR
     subgraph Tauri ["Rust · pc-status.exe"]
         LIB[lib.rs<br/>lanza el sidecar y<br/>reenvía los datos]
         ST[speedtest.rs<br/>prueba de velocidad]
+        PR[processes.rs<br/>procesos sysinfo]
     end
 
     subgraph UI ["React (WebView2)"]
         P[Panel]
         M[Mi PC]
         S[Speedtest]
+        PS[Procesos]
+        AL[Alertas]
     end
+
+    WIN[[Notificaciones<br/>de Windows]]
 
     CF[(Cloudflare<br/>speed.cloudflare.com)]
 
@@ -179,6 +224,9 @@ flowchart LR
     S -- "start_speedtest" --> ST
     ST <--> CF
     ST -- "evento speedtest" --> S
+    PS -- "list / kill_processes" --> PR
+    LIB -- "temperaturas" --> AL
+    AL --> WIN
 ```
 
 **¿Por qué un proceso en .NET?** En Windows, leer la temperatura real de la CPU, los ventiladores y los voltajes de la placa necesita un driver en modo kernel. La librería más completa para eso es [LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) (C#) y no existe un equivalente en Rust. Por eso la app lanza un pequeño ejecutable .NET (*sidecar*) que:
@@ -187,7 +235,7 @@ flowchart LR
 2. Al arrancar (y cuando se le pide por `stdin`) genera el **inventario** usando WMI.
 3. Se cierra solo si la app principal muere (detecta el fin de `stdin`).
 
-El backend en **Rust** lanza ese proceso sin ventana, guarda el último inventario y reenvía todo a la interfaz con eventos de Tauri. La prueba de velocidad se hace directamente en Rust con `reqwest`.
+El backend en **Rust** lanza ese proceso sin ventana, guarda el último inventario y reenvía todo a la interfaz con eventos de Tauri. La prueba de velocidad se hace directamente en Rust con `reqwest`, y la lista de procesos con `sysinfo`. Las alertas se calculan en la interfaz con cada lectura de sensores y se notifican con `tauri-plugin-notification`.
 
 La **interfaz** es React dentro de WebView2: los temas son variables CSS (`--color-*`, `--radius`, `--glow`, `--card-*`, `--app-bg`...) que se cambian en caliente.
 
@@ -231,10 +279,13 @@ Con `npm run dev` la interfaz funciona en cualquier navegador con datos simulado
 
 | Parámetro | Efecto |
 |---|---|
-| `?view=mypc` / `?view=speedtest` | abre esa pestaña |
+| `?view=mypc` / `processes` / `speedtest` / `alerts` | abre esa pestaña |
 | `?theme=cyberpunk` | fuerza un tema sin guardarlo (`neon`, `cyberpunk`, `minimal`, `aurora`, `terminal`, `light`) |
 | `?settings` | abre el panel de ajustes |
 | `?autostart` | lanza un speedtest simulado |
+| `?lang=en` | fuerza un idioma (`es`, `en`, `pt`, `fr`, `de`, `it`, `ru`, `zh`, `ja`) |
+| `?hot` | simula una CPU caliente para ver las alertas |
+| `?nopawnio` | simula que falta el driver PawnIO |
 
 ---
 
@@ -253,12 +304,13 @@ Con `npm run dev` la interfaz funciona en cualquier navegador con datos simulado
 ```
 ├── src/                      Interfaz (React + Tailwind + Motion)
 │   ├── App.tsx               pestañas, ajustes y vista activa
-│   ├── views/                Dashboard · MyPC · Speedtest
+│   ├── views/                Dashboard · MyPC · Processes · Speedtest · Alerts
 │   ├── components/           medidores, gráficas, tarjetas, barra de título, ajustes
-│   └── lib/                  datos de sensores, inventario, speedtest, temas, demo
+│   └── lib/                  sensores, inventario, procesos, alertas, speedtest, temas, idiomas (i18n), demo
 ├── src-tauri/                App de escritorio (Rust / Tauri 2)
 │   ├── src/lib.rs            lanza el sidecar, eventos y comandos
 │   ├── src/speedtest.rs      motor de la prueba de velocidad
+│   ├── src/processes.rs      lista de procesos y finalizar (sysinfo)
 │   └── tauri.conf.json       ventana sin bordes, sidecar, instalador
 ├── sensors/                  Sidecar .NET (LibreHardwareMonitor + WMI)
 │   ├── Program.cs            lectura de sensores cada segundo
@@ -272,7 +324,7 @@ Con `npm run dev` la interfaz funciona en cualquier navegador con datos simulado
 ## Preguntas frecuentes
 
 **¿Por qué no veo la temperatura de la CPU?**
-Ejecuta la app como administrador. Algunas versiones de LibreHardwareMonitor también necesitan el driver [PawnIO](https://pawnio.eu/) instalado.
+Hacen falta dos cosas: ejecutar la app como **administrador** y tener el driver **[PawnIO](https://pawnio.eu/)**, que LibreHardwareMonitor usa desde la versión 0.9.5 para leer temperaturas, ventiladores y voltajes. Si falta, PC Status muestra un aviso con el botón **"Instalar PawnIO"** (incluye el instalador oficial de namazso, verificado por SHA-256); Windows te pedirá permiso y los sensores se reinician solos al terminar.
 
 **¿Puedo usarlo junto a NZXT CAM / Armoury Crate / iCUE?**
 Sí, pero si varios programas leen el chip de la placa a la vez, algún valor puede salir raro. Cierra los otros si ves lecturas extrañas.

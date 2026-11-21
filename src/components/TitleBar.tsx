@@ -2,9 +2,9 @@ import { motion } from "motion/react";
 import { useT } from "../lib/i18n";
 import { isTauri } from "../lib/useSensors";
 
-export type View = "dashboard" | "mypc" | "speedtest" | "alerts";
+export type View = "dashboard" | "mypc" | "speedtest" | "alerts" | "processes";
 
-const TABS: View[] = ["dashboard", "mypc", "speedtest", "alerts"];
+const TABS: View[] = ["dashboard", "mypc", "processes", "speedtest", "alerts"];
 
 async function win() {
   const { getCurrentWindow } = await import("@tauri-apps/api/window");
@@ -27,7 +27,7 @@ export function TitleBar({ live, error, view, onView, onSettings, unreadAlerts =
       <nav className="absolute left-1/2 flex -translate-x-1/2 gap-1 rounded-[var(--radius-pill)] border border-line bg-tint p-1">
         {TABS.map((id) => (
           <button key={id} onClick={() => onView(id)}
-            className={`relative rounded-[var(--radius-pill)] px-4 py-1 text-[13px] font-medium transition-colors ${
+            className={`relative rounded-[var(--radius-pill)] px-3.5 py-1 text-[13px] font-medium transition-colors ${
               view === id ? "text-fg" : "text-muted hover:text-fg"}`}>
             {view === id && (
               <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-[var(--radius-pill)]"
@@ -51,9 +51,11 @@ export function TitleBar({ live, error, view, onView, onSettings, unreadAlerts =
         <span data-tauri-drag-region className="font-display text-sm font-semibold tracking-[0.25em] text-fg">
           PC STATUS
         </span>
-        <span className="ml-2 flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-tint px-2.5 py-0.5 text-[11px] text-muted">
+        <span className="ml-2 flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-tint px-2.5 py-1 text-[11px] text-muted"
+          title={status.text}>
           <span className="pulse h-1.5 w-1.5 rounded-full" style={{ background: status.color }} />
-          {status.text}
+          {/* En ventanas estrechas solo el punto, para no chocar con las pestañas */}
+          <span className="hidden min-[1180px]:inline">{status.text}</span>
         </span>
       </div>
       <div className="flex h-full items-center">

@@ -12,11 +12,12 @@ import { isTauri, useSensors } from "./lib/useSensors";
 import { Dashboard } from "./views/Dashboard";
 import { MyPC } from "./views/MyPC";
 import { Alerts } from "./views/Alerts";
+import { Processes } from "./views/Processes";
 import { Speedtest } from "./views/Speedtest";
 
 // Parámetros de URL para demos y capturas: ?view=mypc  ?settings  ?autostart (speedtest simulado)
 const params = new URLSearchParams(location.search);
-const VIEWS: View[] = ["dashboard", "mypc", "speedtest", "alerts"];
+const VIEWS: View[] = ["dashboard", "mypc", "processes", "speedtest", "alerts"];
 const initialView = (VIEWS.find((v) => v === params.get("view")) ?? "dashboard") as View;
 let autostarted = false; // React en desarrollo ejecuta los efectos dos veces
 
@@ -70,6 +71,7 @@ export default function App() {
             {view === "mypc" && <MyPC {...inv} />}
             {view === "speedtest" && <Speedtest speed={speed} />}
             {view === "alerts" && <Alerts api={alerts} />}
+            {view === "processes" && <Processes />}
           </motion.div>
         </AnimatePresence>
       </main>

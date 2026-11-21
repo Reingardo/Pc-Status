@@ -5,7 +5,7 @@
 import { createContext, useContext } from "react";
 
 const es = {
-  tabs: { dashboard: "Panel", mypc: "Mi PC", speedtest: "Speedtest", alerts: "Alertas" },
+  tabs: { dashboard: "Panel", mypc: "Mi PC", speedtest: "Speedtest", alerts: "Alertas", processes: "Procesos" },
   status: { live: "En vivo", demo: "Modo demo", noSensors: "Sin sensores" },
   window: { settings: "Ajustes", minimize: "Minimizar", maximize: "Maximizar", close: "Cerrar" },
   notices: {
@@ -78,6 +78,13 @@ const es = {
     itemTitle: (w: string, v: number) => `${w} a ${v} °C`, itemDetail: (lim: number, name: string) => `Límite ${lim} °C · ${name}`,
     testName: "Prueba", info: "Se genera una alerta cuando la temperatura supera el límite durante más de 5 segundos. No se repite hasta que baja 3 °C del límite.",
   },
+  procs: {
+    title: "Procesos en ejecución", search: "Buscar proceso…", group: "Agrupar por aplicación", count: (n: number) => `${n} procesos`,
+    name: "Nombre", disk: "Disco", end: "Finalizar", confirmTitle: (name: string) => `¿Finalizar «${name}»?`,
+    confirmOne: "Se cerrará el proceso. Se perderá lo que no esté guardado en él.", confirmMany: (n: number) => `Se cerrarán sus ${n} procesos. Se perderá lo que no esté guardado.`, cancel: "Cancelar",
+    protected: "Protegido", protectedHint: "Proceso de Windows: finalizarlo podría colgar el sistema", killed: (n: number) => `Finalizado (${n})`,
+    failed: "No se pudo finalizar:", empty: "Sin resultados", note: "Los procesos esenciales de Windows están protegidos y no se pueden finalizar desde aquí.",
+  },
   themes: {
     neon: ["Neón", "Vidrio oscuro con brillos cian y violeta"],
     cyberpunk: ["Cyberpunk", "Amarillo y magenta, esquinas cortadas y rejilla"],
@@ -91,7 +98,7 @@ const es = {
 export type Dict = typeof es;
 
 const en: Dict = {
-  tabs: { dashboard: "Dashboard", mypc: "My PC", speedtest: "Speedtest", alerts: "Alerts" },
+  tabs: { dashboard: "Dashboard", mypc: "My PC", speedtest: "Speedtest", alerts: "Alerts", processes: "Processes" },
   status: { live: "Live", demo: "Demo mode", noSensors: "No sensors" },
   window: { settings: "Settings", minimize: "Minimize", maximize: "Maximize", close: "Close" },
   notices: {
@@ -164,6 +171,13 @@ const en: Dict = {
     itemTitle: (w, v) => `${w} at ${v} °C`, itemDetail: (lim, name) => `Limit ${lim} °C · ${name}`,
     testName: "Test", info: "An alert is created when the temperature stays above the limit for more than 5 seconds. It won't repeat until it drops 3 °C below the limit.",
   },
+  procs: {
+    title: "Running processes", search: "Search process…", group: "Group by app", count: (n) => `${n} processes`,
+    name: "Name", disk: "Disk", end: "End", confirmTitle: (name) => `End “${name}”?`,
+    confirmOne: "The process will be closed. Any unsaved work in it will be lost.", confirmMany: (n) => `All ${n} of its processes will be closed. Any unsaved work will be lost.`, cancel: "Cancel",
+    protected: "Protected", protectedHint: "Windows process: ending it could freeze the system", killed: (n) => `Ended (${n})`,
+    failed: "Couldn't end:", empty: "No results", note: "Essential Windows processes are protected and can't be ended from here.",
+  },
   themes: {
     neon: ["Neon", "Dark glass with cyan and violet glow"],
     cyberpunk: ["Cyberpunk", "Yellow and magenta, cut corners and grid"],
@@ -175,7 +189,7 @@ const en: Dict = {
 };
 
 const pt: Dict = {
-  tabs: { dashboard: "Painel", mypc: "Meu PC", speedtest: "Speedtest", alerts: "Alertas" },
+  tabs: { dashboard: "Painel", mypc: "Meu PC", speedtest: "Speedtest", alerts: "Alertas", processes: "Processos" },
   status: { live: "Ao vivo", demo: "Modo demo", noSensors: "Sem sensores" },
   window: { settings: "Configurações", minimize: "Minimizar", maximize: "Maximizar", close: "Fechar" },
   notices: {
@@ -248,6 +262,13 @@ const pt: Dict = {
     itemTitle: (w, v) => `${w} a ${v} °C`, itemDetail: (lim, name) => `Limite ${lim} °C · ${name}`,
     testName: "Teste", info: "Um alerta é gerado quando a temperatura fica acima do limite por mais de 5 segundos. Ele não se repete até cair 3 °C abaixo do limite.",
   },
+  procs: {
+    title: "Processos em execução", search: "Buscar processo…", group: "Agrupar por aplicativo", count: (n) => `${n} processos`,
+    name: "Nome", disk: "Disco", end: "Finalizar", confirmTitle: (name) => `Finalizar “${name}”?`,
+    confirmOne: "O processo será fechado. O que não estiver salvo nele será perdido.", confirmMany: (n) => `Seus ${n} processos serão fechados. O que não estiver salvo será perdido.`, cancel: "Cancelar",
+    protected: "Protegido", protectedHint: "Processo do Windows: finalizá-lo pode travar o sistema", killed: (n) => `Finalizado (${n})`,
+    failed: "Não foi possível finalizar:", empty: "Sem resultados", note: "Os processos essenciais do Windows estão protegidos e não podem ser finalizados por aqui.",
+  },
   themes: {
     neon: ["Neon", "Vidro escuro com brilhos ciano e violeta"],
     cyberpunk: ["Cyberpunk", "Amarelo e magenta, cantos cortados e grade"],
@@ -259,7 +280,7 @@ const pt: Dict = {
 };
 
 const fr: Dict = {
-  tabs: { dashboard: "Tableau de bord", mypc: "Mon PC", speedtest: "Speedtest", alerts: "Alertes" },
+  tabs: { dashboard: "Tableau de bord", mypc: "Mon PC", speedtest: "Speedtest", alerts: "Alertes", processes: "Processus" },
   status: { live: "En direct", demo: "Mode démo", noSensors: "Pas de capteurs" },
   window: { settings: "Paramètres", minimize: "Réduire", maximize: "Agrandir", close: "Fermer" },
   notices: {
@@ -332,6 +353,13 @@ const fr: Dict = {
     itemTitle: (w, v) => `${w} à ${v} °C`, itemDetail: (lim, name) => `Limite ${lim} °C · ${name}`,
     testName: "Test", info: "Une alerte est créée lorsque la température dépasse la limite pendant plus de 5 secondes. Elle ne se répète pas avant de redescendre de 3 °C sous la limite.",
   },
+  procs: {
+    title: "Processus en cours", search: "Rechercher un processus…", group: "Regrouper par application", count: (n) => `${n} processus`,
+    name: "Nom", disk: "Disque", end: "Arrêter", confirmTitle: (name) => `Arrêter « ${name} » ?`,
+    confirmOne: "Le processus sera fermé. Les données non enregistrées seront perdues.", confirmMany: (n) => `Ses ${n} processus seront fermés. Les données non enregistrées seront perdues.`, cancel: "Annuler",
+    protected: "Protégé", protectedHint: "Processus Windows : l'arrêter pourrait bloquer le système", killed: (n) => `Arrêté (${n})`,
+    failed: "Impossible d'arrêter :", empty: "Aucun résultat", note: "Les processus essentiels de Windows sont protégés et ne peuvent pas être arrêtés d'ici.",
+  },
   themes: {
     neon: ["Néon", "Verre sombre avec lueurs cyan et violettes"],
     cyberpunk: ["Cyberpunk", "Jaune et magenta, coins coupés et grille"],
@@ -343,7 +371,7 @@ const fr: Dict = {
 };
 
 const de: Dict = {
-  tabs: { dashboard: "Übersicht", mypc: "Mein PC", speedtest: "Speedtest", alerts: "Warnungen" },
+  tabs: { dashboard: "Übersicht", mypc: "Mein PC", speedtest: "Speedtest", alerts: "Warnungen", processes: "Prozesse" },
   status: { live: "Live", demo: "Demomodus", noSensors: "Keine Sensoren" },
   window: { settings: "Einstellungen", minimize: "Minimieren", maximize: "Maximieren", close: "Schließen" },
   notices: {
@@ -416,6 +444,13 @@ const de: Dict = {
     itemTitle: (w, v) => `${w} bei ${v} °C`, itemDetail: (lim, name) => `Grenze ${lim} °C · ${name}`,
     testName: "Test", info: "Eine Warnung entsteht, wenn die Temperatur länger als 5 Sekunden über der Grenze liegt. Sie wiederholt sich erst, wenn sie 3 °C unter die Grenze fällt.",
   },
+  procs: {
+    title: "Laufende Prozesse", search: "Prozess suchen…", group: "Nach App gruppieren", count: (n) => `${n} Prozesse`,
+    name: "Name", disk: "Datenträger", end: "Beenden", confirmTitle: (name) => `„${name}“ beenden?`,
+    confirmOne: "Der Prozess wird geschlossen. Nicht gespeicherte Daten gehen verloren.", confirmMany: (n) => `Alle ${n} Prozesse werden geschlossen. Nicht gespeicherte Daten gehen verloren.`, cancel: "Abbrechen",
+    protected: "Geschützt", protectedHint: "Windows-Prozess: Beenden könnte das System einfrieren", killed: (n) => `Beendet (${n})`,
+    failed: "Konnte nicht beendet werden:", empty: "Keine Ergebnisse", note: "Wichtige Windows-Prozesse sind geschützt und können hier nicht beendet werden.",
+  },
   themes: {
     neon: ["Neon", "Dunkles Glas mit cyan und violettem Leuchten"],
     cyberpunk: ["Cyberpunk", "Gelb und Magenta, abgeschnittene Ecken und Raster"],
@@ -427,7 +462,7 @@ const de: Dict = {
 };
 
 const it: Dict = {
-  tabs: { dashboard: "Pannello", mypc: "Il mio PC", speedtest: "Speedtest", alerts: "Avvisi" },
+  tabs: { dashboard: "Pannello", mypc: "Il mio PC", speedtest: "Speedtest", alerts: "Avvisi", processes: "Processi" },
   status: { live: "In diretta", demo: "Modalità demo", noSensors: "Nessun sensore" },
   window: { settings: "Impostazioni", minimize: "Riduci a icona", maximize: "Ingrandisci", close: "Chiudi" },
   notices: {
@@ -500,6 +535,13 @@ const it: Dict = {
     itemTitle: (w, v) => `${w} a ${v} °C`, itemDetail: (lim, name) => `Limite ${lim} °C · ${name}`,
     testName: "Prova", info: "Viene generato un avviso quando la temperatura supera il limite per più di 5 secondi. Non si ripete finché non scende di 3 °C sotto il limite.",
   },
+  procs: {
+    title: "Processi in esecuzione", search: "Cerca processo…", group: "Raggruppa per app", count: (n) => `${n} processi`,
+    name: "Nome", disk: "Disco", end: "Termina", confirmTitle: (name) => `Terminare «${name}»?`,
+    confirmOne: "Il processo verrà chiuso. Ciò che non è salvato andrà perso.", confirmMany: (n) => `Verranno chiusi tutti i suoi ${n} processi. Ciò che non è salvato andrà perso.`, cancel: "Annulla",
+    protected: "Protetto", protectedHint: "Processo di Windows: terminarlo potrebbe bloccare il sistema", killed: (n) => `Terminato (${n})`,
+    failed: "Impossibile terminare:", empty: "Nessun risultato", note: "I processi essenziali di Windows sono protetti e non possono essere terminati da qui.",
+  },
   themes: {
     neon: ["Neon", "Vetro scuro con bagliori ciano e viola"],
     cyberpunk: ["Cyberpunk", "Giallo e magenta, angoli tagliati e griglia"],
@@ -511,7 +553,7 @@ const it: Dict = {
 };
 
 const ru: Dict = {
-  tabs: { dashboard: "Панель", mypc: "Мой ПК", speedtest: "Спидтест", alerts: "Оповещения" },
+  tabs: { dashboard: "Панель", mypc: "Мой ПК", speedtest: "Спидтест", alerts: "Оповещения", processes: "Процессы" },
   status: { live: "В реальном времени", demo: "Демо-режим", noSensors: "Нет датчиков" },
   window: { settings: "Настройки", minimize: "Свернуть", maximize: "Развернуть", close: "Закрыть" },
   notices: {
@@ -584,6 +626,13 @@ const ru: Dict = {
     itemTitle: (w, v) => `${w}: ${v} °C`, itemDetail: (lim, name) => `Предел ${lim} °C · ${name}`,
     testName: "Проверка", info: "Оповещение создаётся, если температура держится выше предела более 5 секунд. Повторно — только после снижения на 3 °C ниже предела.",
   },
+  procs: {
+    title: "Запущенные процессы", search: "Поиск процесса…", group: "Группировать по приложению", count: (n) => `Процессов: ${n}`,
+    name: "Имя", disk: "Диск", end: "Завершить", confirmTitle: (name) => `Завершить «${name}»?`,
+    confirmOne: "Процесс будет закрыт. Несохранённые данные будут потеряны.", confirmMany: (n) => `Будут закрыты все его процессы (${n}). Несохранённые данные будут потеряны.`, cancel: "Отмена",
+    protected: "Защищён", protectedHint: "Процесс Windows: его завершение может привести к зависанию", killed: (n) => `Завершено: ${n}`,
+    failed: "Не удалось завершить:", empty: "Ничего не найдено", note: "Важные процессы Windows защищены и не могут быть завершены отсюда.",
+  },
   themes: {
     neon: ["Неон", "Тёмное стекло с бирюзовым и фиолетовым свечением"],
     cyberpunk: ["Киберпанк", "Жёлтый и маджента, срезанные углы и сетка"],
@@ -595,7 +644,7 @@ const ru: Dict = {
 };
 
 const zh: Dict = {
-  tabs: { dashboard: "仪表盘", mypc: "我的电脑", speedtest: "网速测试", alerts: "警报" },
+  tabs: { dashboard: "仪表盘", mypc: "我的电脑", speedtest: "网速测试", alerts: "警报", processes: "进程" },
   status: { live: "实时", demo: "演示模式", noSensors: "无传感器" },
   window: { settings: "设置", minimize: "最小化", maximize: "最大化", close: "关闭" },
   notices: {
@@ -668,6 +717,13 @@ const zh: Dict = {
     itemTitle: (w, v) => `${w} ${v} °C`, itemDetail: (lim, name) => `上限 ${lim} °C · ${name}`,
     testName: "测试", info: "当温度超过上限持续 5 秒以上时会产生警报。在温度降到上限以下 3 °C 之前不会重复提醒。",
   },
+  procs: {
+    title: "正在运行的进程", search: "搜索进程…", group: "按应用分组", count: (n) => `${n} 个进程`,
+    name: "名称", disk: "磁盘", end: "结束", confirmTitle: (name) => `结束“${name}”？`,
+    confirmOne: "该进程将被关闭，未保存的内容会丢失。", confirmMany: (n) => `它的全部 ${n} 个进程将被关闭，未保存的内容会丢失。`, cancel: "取消",
+    protected: "受保护", protectedHint: "Windows 进程：结束它可能导致系统卡死", killed: (n) => `已结束（${n}）`,
+    failed: "无法结束：", empty: "没有结果", note: "重要的 Windows 进程受保护，无法在此结束。",
+  },
   themes: {
     neon: ["霓虹", "深色玻璃，带青色和紫色光晕"],
     cyberpunk: ["赛博朋克", "黄色与品红，切角和网格"],
@@ -679,7 +735,7 @@ const zh: Dict = {
 };
 
 const ja: Dict = {
-  tabs: { dashboard: "ダッシュボード", mypc: "マイ PC", speedtest: "速度テスト", alerts: "アラート" },
+  tabs: { dashboard: "ダッシュボード", mypc: "マイ PC", speedtest: "速度テスト", alerts: "アラート", processes: "プロセス" },
   status: { live: "ライブ", demo: "デモモード", noSensors: "センサーなし" },
   window: { settings: "設定", minimize: "最小化", maximize: "最大化", close: "閉じる" },
   notices: {
@@ -751,6 +807,13 @@ const ja: Dict = {
     notifTitle: (w) => `${w}：高温`, notifBody: (v, lim) => `${v} °C（上限 ${lim} °C）`,
     itemTitle: (w, v) => `${w} が ${v} °C`, itemDetail: (lim, name) => `上限 ${lim} °C · ${name}`,
     testName: "テスト", info: "温度が上限を 5 秒以上超えるとアラートが作成されます。上限より 3 °C 下がるまで再通知しません。",
+  },
+  procs: {
+    title: "実行中のプロセス", search: "プロセスを検索…", group: "アプリごとにまとめる", count: (n) => `${n} 個のプロセス`,
+    name: "名前", disk: "ディスク", end: "終了", confirmTitle: (name) => `「${name}」を終了しますか？`,
+    confirmOne: "プロセスが閉じられます。保存していない内容は失われます。", confirmMany: (n) => `${n} 個のプロセスがすべて閉じられます。保存していない内容は失われます。`, cancel: "キャンセル",
+    protected: "保護", protectedHint: "Windows のプロセス：終了するとシステムが停止するおそれがあります", killed: (n) => `終了しました（${n}）`,
+    failed: "終了できませんでした：", empty: "該当なし", note: "Windows の重要なプロセスは保護されており、ここからは終了できません。",
   },
   themes: {
     neon: ["ネオン", "シアンとバイオレットに光るダークガラス"],

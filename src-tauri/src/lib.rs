@@ -7,6 +7,7 @@ use std::sync::{Arc, Mutex};
 use tauri::path::BaseDirectory;
 use tauri::{AppHandle, Emitter, Manager, RunEvent, State};
 
+mod processes;
 mod speedtest;
 
 /// No abrir ventana de consola para el proceso de sensores.
@@ -149,12 +150,15 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init())
         .manage(Sensors::default())
         .manage(speedtest::SpeedTest::default())
+        .manage(processes::Processes::default())
         .invoke_handler(tauri::generate_handler![
             get_inventory,
             refresh_inventory,
             speedtest::start_speedtest,
             speedtest::cancel_speedtest,
             install_pawnio,
+            processes::list_processes,
+            processes::kill_processes,
         ])
         .setup(|app| {
             match spawn_sensors(app.handle()) {

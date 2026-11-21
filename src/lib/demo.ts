@@ -1,6 +1,8 @@
 import type { Snapshot } from "./types";
 import type { Inventory } from "./inventory";
 
+const HOT = typeof location !== "undefined" && new URLSearchParams(location.search).has("hot");
+
 /** Inventario ficticio para diseñar la vista "Mi PC" en el navegador. */
 export function demoInventory(): Inventory {
   return {
@@ -62,7 +64,8 @@ export function demoSnapshot(prev: Snapshot | null): Snapshot {
     cpu: {
       name: "Demo CPU 8-Core",
       load: cpuLoad,
-      temp: walk(prev?.cpu?.temp, 38 + cpuLoad * 0.4, 3, 30, 95),
+      // ?hot en la URL simula una CPU caliente (para probar las alertas)
+      temp: walk(prev?.cpu?.temp, (HOT ? 88 : 38) + cpuLoad * 0.15, 3, 30, 98),
       clock: walk(prev?.cpu?.clock, 4400, 250, 3000, 5400),
       power: walk(prev?.cpu?.power, 25 + cpuLoad * 0.9, 8, 10, 180),
       cores,

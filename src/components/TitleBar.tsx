@@ -2,9 +2,9 @@ import { motion } from "motion/react";
 import { useT } from "../lib/i18n";
 import { isTauri } from "../lib/useSensors";
 
-export type View = "dashboard" | "mypc" | "speedtest";
+export type View = "dashboard" | "mypc" | "speedtest" | "alerts";
 
-const TABS: View[] = ["dashboard", "mypc", "speedtest"];
+const TABS: View[] = ["dashboard", "mypc", "speedtest", "alerts"];
 
 async function win() {
   const { getCurrentWindow } = await import("@tauri-apps/api/window");
@@ -12,8 +12,9 @@ async function win() {
 }
 
 /** Barra de título propia (la ventana no tiene bordes de Windows). */
-export function TitleBar({ live, error, view, onView, onSettings }: {
+export function TitleBar({ live, error, view, onView, onSettings, unreadAlerts = 0 }: {
   live: boolean; error: string | null; view: View; onView: (v: View) => void; onSettings: () => void;
+  unreadAlerts?: number;
 }) {
   const { t } = useT();
   const status = error ? { text: t.status.noSensors, color: "var(--color-hot)" }
@@ -34,7 +35,14 @@ export function TitleBar({ live, error, view, onView, onSettings }: {
                   boxShadow: "0 0 0 1px var(--color-line) inset" }}
                 transition={{ type: "spring", stiffness: 400, damping: 32 }} />
             )}
-            <span className="relative">{t.tabs[id]}</span>
+            <span className="relative flex items-center gap-1.5">
+              {/* Punto rojo: hay alertas sin leer */}
+              {id === "alerts" && unreadAlerts > 0 && (
+                <span className="pulse h-2 w-2 rounded-full" title={t.alerts.unread(unreadAlerts)}
+                  style={{ background: "var(--color-hot)", boxShadow: "0 0 8px var(--color-hot)" }} />
+              )}
+              {t.tabs[id]}
+            </span>
           </button>
         ))}
       </nav>

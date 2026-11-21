@@ -5,7 +5,7 @@
 import { createContext, useContext } from "react";
 
 const es = {
-  tabs: { dashboard: "Panel", mypc: "Mi PC", speedtest: "Speedtest" },
+  tabs: { dashboard: "Panel", mypc: "Mi PC", speedtest: "Speedtest", alerts: "Alertas" },
   status: { live: "En vivo", demo: "Modo demo", noSensors: "Sin sensores" },
   window: { settings: "Ajustes", minimize: "Minimizar", maximize: "Maximizar", close: "Cerrar" },
   notices: {
@@ -69,6 +69,15 @@ const es = {
     glow: "Intensidad del brillo", animations: "Animaciones", animationsDesc: "Medidores, transiciones y ventiladores girando",
     reset: "Restablecer valores por defecto",
   },
+  alerts: {
+    tab: "Alertas", history: "Historial de alertas", unread: (n: number) => `${n} sin leer`, empty: "Sin alertas. Todo en orden.",
+    markAll: "Marcar todo como leído", clear: "Borrar todo", limits: "Límites de temperatura", enabled: "Alertas activadas",
+    notify: "Notificaciones de Windows", notifyDesc: "Muestra un aviso aunque la app esté minimizada", cpu: "Procesador", gpu: "Gráfica", disk: "Discos",
+    recommended: (v: number) => `Recomendado: ${v} °C`, test: "Probar notificación", reset: "Restablecer recomendados",
+    notifTitle: (w: string) => `${w}: temperatura alta`, notifBody: (v: number, lim: number) => `${v} °C (límite ${lim} °C)`,
+    itemTitle: (w: string, v: number) => `${w} a ${v} °C`, itemDetail: (lim: number, name: string) => `Límite ${lim} °C · ${name}`,
+    testName: "Prueba", info: "Se genera una alerta cuando la temperatura supera el límite durante más de 5 segundos. No se repite hasta que baja 3 °C del límite.",
+  },
   themes: {
     neon: ["Neón", "Vidrio oscuro con brillos cian y violeta"],
     cyberpunk: ["Cyberpunk", "Amarillo y magenta, esquinas cortadas y rejilla"],
@@ -82,7 +91,7 @@ const es = {
 export type Dict = typeof es;
 
 const en: Dict = {
-  tabs: { dashboard: "Dashboard", mypc: "My PC", speedtest: "Speedtest" },
+  tabs: { dashboard: "Dashboard", mypc: "My PC", speedtest: "Speedtest", alerts: "Alerts" },
   status: { live: "Live", demo: "Demo mode", noSensors: "No sensors" },
   window: { settings: "Settings", minimize: "Minimize", maximize: "Maximize", close: "Close" },
   notices: {
@@ -146,6 +155,15 @@ const en: Dict = {
     glow: "Glow intensity", animations: "Animations", animationsDesc: "Gauges, transitions and spinning fans",
     reset: "Reset to defaults",
   },
+  alerts: {
+    tab: "Alerts", history: "Alert history", unread: (n) => `${n} unread`, empty: "No alerts. Everything is fine.",
+    markAll: "Mark all as read", clear: "Clear all", limits: "Temperature limits", enabled: "Alerts enabled",
+    notify: "Windows notifications", notifyDesc: "Shows a notice even when the app is minimized", cpu: "Processor", gpu: "Graphics", disk: "Drives",
+    recommended: (v) => `Recommended: ${v} °C`, test: "Test notification", reset: "Reset to recommended",
+    notifTitle: (w) => `${w}: high temperature`, notifBody: (v, lim) => `${v} °C (limit ${lim} °C)`,
+    itemTitle: (w, v) => `${w} at ${v} °C`, itemDetail: (lim, name) => `Limit ${lim} °C · ${name}`,
+    testName: "Test", info: "An alert is created when the temperature stays above the limit for more than 5 seconds. It won't repeat until it drops 3 °C below the limit.",
+  },
   themes: {
     neon: ["Neon", "Dark glass with cyan and violet glow"],
     cyberpunk: ["Cyberpunk", "Yellow and magenta, cut corners and grid"],
@@ -157,7 +175,7 @@ const en: Dict = {
 };
 
 const pt: Dict = {
-  tabs: { dashboard: "Painel", mypc: "Meu PC", speedtest: "Speedtest" },
+  tabs: { dashboard: "Painel", mypc: "Meu PC", speedtest: "Speedtest", alerts: "Alertas" },
   status: { live: "Ao vivo", demo: "Modo demo", noSensors: "Sem sensores" },
   window: { settings: "Configurações", minimize: "Minimizar", maximize: "Maximizar", close: "Fechar" },
   notices: {
@@ -221,6 +239,15 @@ const pt: Dict = {
     glow: "Intensidade do brilho", animations: "Animações", animationsDesc: "Medidores, transições e ventoinhas girando",
     reset: "Restaurar padrões",
   },
+  alerts: {
+    tab: "Alertas", history: "Histórico de alertas", unread: (n) => `${n} não lidas`, empty: "Sem alertas. Tudo em ordem.",
+    markAll: "Marcar tudo como lido", clear: "Apagar tudo", limits: "Limites de temperatura", enabled: "Alertas ativados",
+    notify: "Notificações do Windows", notifyDesc: "Mostra um aviso mesmo com o app minimizado", cpu: "Processador", gpu: "Placa de vídeo", disk: "Discos",
+    recommended: (v) => `Recomendado: ${v} °C`, test: "Testar notificação", reset: "Restaurar recomendados",
+    notifTitle: (w) => `${w}: temperatura alta`, notifBody: (v, lim) => `${v} °C (limite ${lim} °C)`,
+    itemTitle: (w, v) => `${w} a ${v} °C`, itemDetail: (lim, name) => `Limite ${lim} °C · ${name}`,
+    testName: "Teste", info: "Um alerta é gerado quando a temperatura fica acima do limite por mais de 5 segundos. Ele não se repete até cair 3 °C abaixo do limite.",
+  },
   themes: {
     neon: ["Neon", "Vidro escuro com brilhos ciano e violeta"],
     cyberpunk: ["Cyberpunk", "Amarelo e magenta, cantos cortados e grade"],
@@ -232,7 +259,7 @@ const pt: Dict = {
 };
 
 const fr: Dict = {
-  tabs: { dashboard: "Tableau de bord", mypc: "Mon PC", speedtest: "Speedtest" },
+  tabs: { dashboard: "Tableau de bord", mypc: "Mon PC", speedtest: "Speedtest", alerts: "Alertes" },
   status: { live: "En direct", demo: "Mode démo", noSensors: "Pas de capteurs" },
   window: { settings: "Paramètres", minimize: "Réduire", maximize: "Agrandir", close: "Fermer" },
   notices: {
@@ -296,6 +323,15 @@ const fr: Dict = {
     glow: "Intensité de la lueur", animations: "Animations", animationsDesc: "Jauges, transitions et ventilateurs qui tournent",
     reset: "Rétablir les valeurs par défaut",
   },
+  alerts: {
+    tab: "Alertes", history: "Historique des alertes", unread: (n) => `${n} non lues`, empty: "Aucune alerte. Tout va bien.",
+    markAll: "Tout marquer comme lu", clear: "Tout effacer", limits: "Limites de température", enabled: "Alertes activées",
+    notify: "Notifications Windows", notifyDesc: "Affiche un avis même si l'application est réduite", cpu: "Processeur", gpu: "Carte graphique", disk: "Disques",
+    recommended: (v) => `Recommandé : ${v} °C`, test: "Tester la notification", reset: "Rétablir les valeurs recommandées",
+    notifTitle: (w) => `${w} : température élevée`, notifBody: (v, lim) => `${v} °C (limite ${lim} °C)`,
+    itemTitle: (w, v) => `${w} à ${v} °C`, itemDetail: (lim, name) => `Limite ${lim} °C · ${name}`,
+    testName: "Test", info: "Une alerte est créée lorsque la température dépasse la limite pendant plus de 5 secondes. Elle ne se répète pas avant de redescendre de 3 °C sous la limite.",
+  },
   themes: {
     neon: ["Néon", "Verre sombre avec lueurs cyan et violettes"],
     cyberpunk: ["Cyberpunk", "Jaune et magenta, coins coupés et grille"],
@@ -307,7 +343,7 @@ const fr: Dict = {
 };
 
 const de: Dict = {
-  tabs: { dashboard: "Übersicht", mypc: "Mein PC", speedtest: "Speedtest" },
+  tabs: { dashboard: "Übersicht", mypc: "Mein PC", speedtest: "Speedtest", alerts: "Warnungen" },
   status: { live: "Live", demo: "Demomodus", noSensors: "Keine Sensoren" },
   window: { settings: "Einstellungen", minimize: "Minimieren", maximize: "Maximieren", close: "Schließen" },
   notices: {
@@ -371,6 +407,15 @@ const de: Dict = {
     glow: "Leuchtintensität", animations: "Animationen", animationsDesc: "Anzeigen, Übergänge und drehende Lüfter",
     reset: "Auf Standard zurücksetzen",
   },
+  alerts: {
+    tab: "Warnungen", history: "Warnungsverlauf", unread: (n) => `${n} ungelesen`, empty: "Keine Warnungen. Alles in Ordnung.",
+    markAll: "Alle als gelesen markieren", clear: "Alle löschen", limits: "Temperaturgrenzen", enabled: "Warnungen aktiviert",
+    notify: "Windows-Benachrichtigungen", notifyDesc: "Zeigt einen Hinweis, auch wenn die App minimiert ist", cpu: "Prozessor", gpu: "Grafikkarte", disk: "Laufwerke",
+    recommended: (v) => `Empfohlen: ${v} °C`, test: "Benachrichtigung testen", reset: "Empfohlene Werte wiederherstellen",
+    notifTitle: (w) => `${w}: hohe Temperatur`, notifBody: (v, lim) => `${v} °C (Grenze ${lim} °C)`,
+    itemTitle: (w, v) => `${w} bei ${v} °C`, itemDetail: (lim, name) => `Grenze ${lim} °C · ${name}`,
+    testName: "Test", info: "Eine Warnung entsteht, wenn die Temperatur länger als 5 Sekunden über der Grenze liegt. Sie wiederholt sich erst, wenn sie 3 °C unter die Grenze fällt.",
+  },
   themes: {
     neon: ["Neon", "Dunkles Glas mit cyan und violettem Leuchten"],
     cyberpunk: ["Cyberpunk", "Gelb und Magenta, abgeschnittene Ecken und Raster"],
@@ -382,7 +427,7 @@ const de: Dict = {
 };
 
 const it: Dict = {
-  tabs: { dashboard: "Pannello", mypc: "Il mio PC", speedtest: "Speedtest" },
+  tabs: { dashboard: "Pannello", mypc: "Il mio PC", speedtest: "Speedtest", alerts: "Avvisi" },
   status: { live: "In diretta", demo: "Modalità demo", noSensors: "Nessun sensore" },
   window: { settings: "Impostazioni", minimize: "Riduci a icona", maximize: "Ingrandisci", close: "Chiudi" },
   notices: {
@@ -446,6 +491,15 @@ const it: Dict = {
     glow: "Intensità del bagliore", animations: "Animazioni", animationsDesc: "Indicatori, transizioni e ventole che girano",
     reset: "Ripristina predefiniti",
   },
+  alerts: {
+    tab: "Avvisi", history: "Cronologia avvisi", unread: (n) => `${n} non letti`, empty: "Nessun avviso. Tutto a posto.",
+    markAll: "Segna tutto come letto", clear: "Cancella tutto", limits: "Limiti di temperatura", enabled: "Avvisi attivati",
+    notify: "Notifiche di Windows", notifyDesc: "Mostra un avviso anche con l'app ridotta a icona", cpu: "Processore", gpu: "Scheda video", disk: "Dischi",
+    recommended: (v) => `Consigliato: ${v} °C`, test: "Prova notifica", reset: "Ripristina consigliati",
+    notifTitle: (w) => `${w}: temperatura alta`, notifBody: (v, lim) => `${v} °C (limite ${lim} °C)`,
+    itemTitle: (w, v) => `${w} a ${v} °C`, itemDetail: (lim, name) => `Limite ${lim} °C · ${name}`,
+    testName: "Prova", info: "Viene generato un avviso quando la temperatura supera il limite per più di 5 secondi. Non si ripete finché non scende di 3 °C sotto il limite.",
+  },
   themes: {
     neon: ["Neon", "Vetro scuro con bagliori ciano e viola"],
     cyberpunk: ["Cyberpunk", "Giallo e magenta, angoli tagliati e griglia"],
@@ -457,7 +511,7 @@ const it: Dict = {
 };
 
 const ru: Dict = {
-  tabs: { dashboard: "Панель", mypc: "Мой ПК", speedtest: "Спидтест" },
+  tabs: { dashboard: "Панель", mypc: "Мой ПК", speedtest: "Спидтест", alerts: "Оповещения" },
   status: { live: "В реальном времени", demo: "Демо-режим", noSensors: "Нет датчиков" },
   window: { settings: "Настройки", minimize: "Свернуть", maximize: "Развернуть", close: "Закрыть" },
   notices: {
@@ -521,6 +575,15 @@ const ru: Dict = {
     glow: "Интенсивность свечения", animations: "Анимации", animationsDesc: "Индикаторы, переходы и вращающиеся вентиляторы",
     reset: "Сбросить настройки",
   },
+  alerts: {
+    tab: "Оповещения", history: "История оповещений", unread: (n) => `Непрочитанных: ${n}`, empty: "Оповещений нет. Всё в порядке.",
+    markAll: "Отметить все как прочитанные", clear: "Очистить всё", limits: "Пределы температуры", enabled: "Оповещения включены",
+    notify: "Уведомления Windows", notifyDesc: "Показывает уведомление, даже если приложение свёрнуто", cpu: "Процессор", gpu: "Видеокарта", disk: "Накопители",
+    recommended: (v) => `Рекомендуется: ${v} °C`, test: "Проверить уведомление", reset: "Вернуть рекомендуемые",
+    notifTitle: (w) => `${w}: высокая температура`, notifBody: (v, lim) => `${v} °C (предел ${lim} °C)`,
+    itemTitle: (w, v) => `${w}: ${v} °C`, itemDetail: (lim, name) => `Предел ${lim} °C · ${name}`,
+    testName: "Проверка", info: "Оповещение создаётся, если температура держится выше предела более 5 секунд. Повторно — только после снижения на 3 °C ниже предела.",
+  },
   themes: {
     neon: ["Неон", "Тёмное стекло с бирюзовым и фиолетовым свечением"],
     cyberpunk: ["Киберпанк", "Жёлтый и маджента, срезанные углы и сетка"],
@@ -532,7 +595,7 @@ const ru: Dict = {
 };
 
 const zh: Dict = {
-  tabs: { dashboard: "仪表盘", mypc: "我的电脑", speedtest: "网速测试" },
+  tabs: { dashboard: "仪表盘", mypc: "我的电脑", speedtest: "网速测试", alerts: "警报" },
   status: { live: "实时", demo: "演示模式", noSensors: "无传感器" },
   window: { settings: "设置", minimize: "最小化", maximize: "最大化", close: "关闭" },
   notices: {
@@ -596,6 +659,15 @@ const zh: Dict = {
     glow: "光晕强度", animations: "动画", animationsDesc: "仪表、过渡效果和旋转的风扇",
     reset: "恢复默认设置",
   },
+  alerts: {
+    tab: "警报", history: "警报记录", unread: (n) => `${n} 条未读`, empty: "没有警报，一切正常。",
+    markAll: "全部标为已读", clear: "全部清除", limits: "温度上限", enabled: "启用警报",
+    notify: "Windows 通知", notifyDesc: "即使应用最小化也会显示提醒", cpu: "处理器", gpu: "显卡", disk: "硬盘",
+    recommended: (v) => `建议：${v} °C`, test: "测试通知", reset: "恢复建议值",
+    notifTitle: (w) => `${w}：温度过高`, notifBody: (v, lim) => `${v} °C（上限 ${lim} °C）`,
+    itemTitle: (w, v) => `${w} ${v} °C`, itemDetail: (lim, name) => `上限 ${lim} °C · ${name}`,
+    testName: "测试", info: "当温度超过上限持续 5 秒以上时会产生警报。在温度降到上限以下 3 °C 之前不会重复提醒。",
+  },
   themes: {
     neon: ["霓虹", "深色玻璃，带青色和紫色光晕"],
     cyberpunk: ["赛博朋克", "黄色与品红，切角和网格"],
@@ -607,7 +679,7 @@ const zh: Dict = {
 };
 
 const ja: Dict = {
-  tabs: { dashboard: "ダッシュボード", mypc: "マイ PC", speedtest: "速度テスト" },
+  tabs: { dashboard: "ダッシュボード", mypc: "マイ PC", speedtest: "速度テスト", alerts: "アラート" },
   status: { live: "ライブ", demo: "デモモード", noSensors: "センサーなし" },
   window: { settings: "設定", minimize: "最小化", maximize: "最大化", close: "閉じる" },
   notices: {
@@ -670,6 +742,15 @@ const ja: Dict = {
     title: "設定", close: "設定を閉じる", language: "言語", theme: "テーマ", customize: "カスタマイズ",
     glow: "グローの強さ", animations: "アニメーション", animationsDesc: "メーター、トランジション、回転するファン",
     reset: "既定値に戻す",
+  },
+  alerts: {
+    tab: "アラート", history: "アラート履歴", unread: (n) => `未読 ${n} 件`, empty: "アラートはありません。すべて正常です。",
+    markAll: "すべて既読にする", clear: "すべて削除", limits: "温度の上限", enabled: "アラートを有効にする",
+    notify: "Windows 通知", notifyDesc: "アプリが最小化されていても通知を表示します", cpu: "プロセッサー", gpu: "グラフィックス", disk: "ドライブ",
+    recommended: (v) => `推奨：${v} °C`, test: "通知をテスト", reset: "推奨値に戻す",
+    notifTitle: (w) => `${w}：高温`, notifBody: (v, lim) => `${v} °C（上限 ${lim} °C）`,
+    itemTitle: (w, v) => `${w} が ${v} °C`, itemDetail: (lim, name) => `上限 ${lim} °C · ${name}`,
+    testName: "テスト", info: "温度が上限を 5 秒以上超えるとアラートが作成されます。上限より 3 °C 下がるまで再通知しません。",
   },
   themes: {
     neon: ["ネオン", "シアンとバイオレットに光るダークガラス"],

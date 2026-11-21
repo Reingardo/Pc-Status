@@ -146,6 +146,7 @@ async fn install_pawnio(app: AppHandle) -> Result<(), String> {
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
         .manage(Sensors::default())
         .manage(speedtest::SpeedTest::default())
         .invoke_handler(tauri::generate_handler![

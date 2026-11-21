@@ -27,6 +27,8 @@ No necesitas instalar nada más: el instalador incluye todo (la app, el lector d
 
 **Desinstalar:** Configuración de Windows → Aplicaciones → PC Status → Desinstalar.
 
+**Code signing policy:** los instaladores se compilan automáticamente en GitHub Actions a partir de este código. Ver la [política de firma de código](CODE_SIGNING_POLICY.md). *Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)* (en trámite: las versiones firmadas lo indicarán en su release).
+
 ---
 
 ## Funcionalidades de un vistazo
@@ -282,6 +284,14 @@ Solo se conecta a `speed.cloudflare.com` para hacer la prueba (igual que si la h
 Cada servicio usa servidores distintos; la velocidad depende de la ruta hasta cada uno. PC Status mide contra el servidor de Cloudflare más cercano.
 
 ---
+
+## Code signing policy
+
+Ver [CODE_SIGNING_POLICY.md](CODE_SIGNING_POLICY.md): qué se firma, roles del equipo y privacidad.
+
+## Licencia
+
+[MIT](LICENSE) © Reingardo.
 
 ## Créditos
 

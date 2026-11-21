@@ -1,0 +1,106 @@
+# Compila PC Status en GitHub (máquina Windows limpia) y, al publicar una versión,
+# firma el instalador con SignPath y crea el borrador de la release.
+#
+# - push a main          → compila y guarda el instalador como artefacto (comprobación)
+# - push de etiqueta v*  → compila, firma con SignPath (si está configurado) y crea la release en BORRADOR
+#
+# Configuración de SignPath (cuando aprueben el proyecto), en
+# Settings → Secrets and variables → Actions:
+#   - secreto  SIGNPATH_API_TOKEN
+#   - variable SIGNPATH_ORGANIZATION_ID
+# Sin eso, la release se crea con el instalador sin firmar.
+
+name: Build & Release
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write # crear la release
+  actions: read   # SignPath lee el artefacto subido
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar instalador (sidecar .NET + interfaz + Rust + NSIS)
+        run: npm run app:build
+
+      - name: Preparar instalador
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force out | Out-Null
+          $setup = Get-ChildItem src-tauri/target/release/bundle/nsis/*-setup.exe | Select-Object -First 1
+          Copy-Item $setup.FullName out/PC-Status_x64-setup.exe
+          Get-FileHash out/PC-Status_x64-setup.exe -Algorithm SHA256 | Format-List
+
+      - name: Subir instalador sin firmar
+        id: upload-unsigned
+        uses: actions/upload-artifact@v4
+        with:
+          name: PC-Status-installer-unsigned
+          path: out/PC-Status_x64-setup.exe
+          if-no-files-found: error
+
+      # --- Firma (solo al publicar una versión y si SignPath está configurado) ---
+      - name: Firmar con SignPath
+        if: startsWith(github.ref, 'refs/tags/v') && vars.SIGNPATH_ORGANIZATION_ID != ''
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: pc-status
+          signing-policy-slug: release-signing
+          github-artifact-id: ${{ steps.upload-unsigned.outputs.artifact-id }}
+          wait-for-completion: true
+          # Cada firma necesita tu aprobación manual en SignPath: hay 1 h para darla.
+          wait-for-completion-timeout-in-seconds: 3600
+          output-artifact-directory: signed
+
+      - name: Usar el instalador firmado
+        if: startsWith(github.ref, 'refs/tags/v') && vars.SIGNPATH_ORGANIZATION_ID != ''
+        shell: pwsh
+        run: Copy-Item signed/PC-Status_x64-setup.exe out/PC-Status_x64-setup.exe -Force
+
+      # --- Release en borrador: la revisas y la publicas tú ---
+      - name: Crear release (borrador)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: out/PC-Status_x64-setup.exe
+          body: |
+            ## ⬇️ Instalar
+            Descarga **`PC-Status_x64-setup.exe`** (abajo, en *Assets*) y ábrelo. Requiere Windows 10 / 11 de 64 bits.
+
+            Funcionalidades, capturas y requisitos en el [README](https://github.com/Reingardo/Pc-Status#readme).
+
+            **Code signing policy:** ver [CODE_SIGNING_POLICY.md](https://github.com/Reingardo/Pc-Status/blob/main/CODE_SIGNING_POLICY.md).

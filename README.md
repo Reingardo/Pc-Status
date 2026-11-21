@@ -10,8 +10,37 @@ Hecho con **Tauri 2 (Rust)**, **React + Tailwind + Motion** y un pequeño proces
 
 ---
 
+## ⬇️ Descargar
+
+### [**Descargar PC Status para Windows (instalador .exe)**](https://github.com/Reingardo/Pc-Status/releases/latest)
+
+No necesitas instalar nada más: el instalador incluye todo (la app, el lector de sensores y su runtime de .NET).
+
+**Requisitos:** Windows 10 u 11 de 64 bits, con WebView2 (ya viene en Windows 11 y en Windows 10 actualizado).
+
+**Instalación:**
+
+1. Descarga `PC-Status_x64-setup.exe` desde la [última versión](https://github.com/Reingardo/Pc-Status/releases/latest).
+2. Ábrelo. Si Windows SmartScreen muestra *"Windows protegió su PC"*, pulsa **Más información → Ejecutar de todas formas** (sale porque el instalador no está firmado con un certificado de pago, es normal en proyectos personales).
+3. Sigue el asistente. Puedes marcar **"Crear acceso directo en el escritorio"**.
+4. Al abrir PC Status, Windows pedirá **permisos de administrador**: son necesarios para leer temperaturas de CPU, ventiladores y voltajes.
+
+**Desinstalar:** Configuración de Windows → Aplicaciones → PC Status → Desinstalar.
+
+---
+
+## Funcionalidades de un vistazo
+
+| | |
+|---|---|
+| [![Panel](docs/screenshots/panel.png)](#panel-monitoreo-en-tiempo-real) **📊 Panel**: CPU, GPU, RAM, núcleos, red, ventiladores y discos en tiempo real, con medidores animados y gráficas de 60 s. | [![Mi PC](docs/screenshots/mi-pc.png)](#mi-pc-inventario-de-hardware) **🖥️ Mi PC**: inventario completo del hardware: procesador, gráfica, placa y BIOS, RAM por ranura, discos, pantallas, red y audio. |
+| [![Speedtest](docs/screenshots/speedtest.png)](#speedtest-velocidad-de-internet) **🚀 Speedtest**: ping, jitter, descarga y subida con velocímetro, menú de tipo y duración, valoración e historial. | [![Ajustes](docs/screenshots/ajustes.png)](#ajustes-y-temas) **🎨 Temas**: 6 estilos distintos (Neón, Cyberpunk, Minimal, Aurora, Terminal y Claro), con brillo ajustable y opción sin animaciones. |
+
+---
+
 ## Índice
 
+- [Descargar](#️-descargar)
 - [Funciones](#funciones)
   - [Panel: monitoreo en tiempo real](#panel-monitoreo-en-tiempo-real)
   - [Mi PC: inventario de hardware](#mi-pc-inventario-de-hardware)
@@ -163,6 +192,8 @@ La **interfaz** es React dentro de WebView2: los temas son variables CSS (`--col
 ---
 
 ## Instalación y uso
+
+> ¿Solo quieres usar la app? Descarga el instalador en [Descargar](#️-descargar). Esta sección es para **compilarla tú mismo** o modificarla.
 
 ### Requisitos
 

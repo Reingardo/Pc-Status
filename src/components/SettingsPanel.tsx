@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect } from "react";
+import { LANGS, useT } from "../lib/i18n";
 import { DEFAULT_SETTINGS, THEMES, type Settings, type Theme } from "../lib/themes";
 
 interface Props {
@@ -17,6 +18,7 @@ export function SettingsPanel({ open, onClose, settings, onChange }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  const { t } = useT();
   const set = (patch: Partial<Settings>) => onChange({ ...settings, ...patch });
 
   return (
@@ -25,14 +27,14 @@ export function SettingsPanel({ open, onClose, settings, onChange }: Props) {
         <>
           <motion.div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px]" onClick={onClose}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
-          <motion.aside role="dialog" aria-label="Ajustes"
+          <motion.aside role="dialog" aria-label={t.settings.title}
             className="fixed top-0 right-0 bottom-0 z-50 flex w-[400px] max-w-full flex-col border-l border-line shadow-2xl"
             style={{ background: "var(--color-bg)" }}
             initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 380, damping: 38 }}>
             <header className="flex items-center justify-between px-6 pt-5 pb-4">
-              <h2 className="font-display text-xl font-semibold text-fg">Ajustes</h2>
-              <button onClick={onClose} aria-label="Cerrar ajustes"
+              <h2 className="font-display text-xl font-semibold text-fg">{t.settings.title}</h2>
+              <button onClick={onClose} aria-label={t.settings.close}
                 className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-pill)] text-muted transition hover:bg-tint-2 hover:text-fg">
                 <svg width="12" height="12" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.4">
                   <path d="M1.5 1.5l8 8M9.5 1.5l-8 8" />
@@ -41,7 +43,19 @@ export function SettingsPanel({ open, onClose, settings, onChange }: Props) {
             </header>
 
             <div className="flex-1 overflow-y-auto px-6 pb-6">
-              <Section title="Tema">
+              <Section title={t.settings.language}>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {LANGS.map((l) => (
+                    <button key={l.id} onClick={() => set({ lang: l.id })} aria-pressed={settings.lang === l.id}
+                      className={`rounded-[var(--radius-sm)] border px-2 py-2 text-sm transition ${
+                        settings.lang === l.id ? "border-[color:var(--color-cpu)] bg-tint-2 text-fg" : "border-line text-muted hover:bg-tint hover:text-fg"}`}>
+                      {l.name}
+                    </button>
+                  ))}
+                </div>
+              </Section>
+
+              <Section title={t.settings.theme}>
                 <div className="grid grid-cols-2 gap-3">
                   {THEMES.map((t) => (
                     <ThemeCard key={t.id} theme={t} active={settings.theme === t.id} onClick={() => set({ theme: t.id })} />
@@ -49,10 +63,10 @@ export function SettingsPanel({ open, onClose, settings, onChange }: Props) {
                 </div>
               </Section>
 
-              <Section title="Personalizar">
+              <Section title={t.settings.customize}>
                 <label className="block">
                   <div className="mb-2 flex justify-between text-sm">
-                    <span className="text-fg">Intensidad del brillo</span>
+                    <span className="text-fg">{t.settings.glow}</span>
                     <span className="tabular-nums text-muted">{Math.round(settings.glow * 100)}%</span>
                   </div>
                   <input type="range" min={0} max={2} step={0.05} value={settings.glow}
@@ -62,15 +76,15 @@ export function SettingsPanel({ open, onClose, settings, onChange }: Props) {
 
                 <div className="mt-5 flex items-center justify-between">
                   <div>
-                    <div className="text-sm text-fg">Animaciones</div>
-                    <div className="text-xs text-muted">Medidores, transiciones y ventiladores girando</div>
+                    <div className="text-sm text-fg">{t.settings.animations}</div>
+                    <div className="text-xs text-muted">{t.settings.animationsDesc}</div>
                   </div>
                   <Toggle checked={settings.animations} onChange={(v) => set({ animations: v })} />
                 </div>
 
-                <button onClick={() => onChange(DEFAULT_SETTINGS)}
+                <button onClick={() => onChange({ ...DEFAULT_SETTINGS, lang: settings.lang })}
                   className="mt-6 w-full rounded-[var(--radius-sm)] border border-line px-4 py-2 text-sm text-muted transition hover:bg-tint hover:text-fg">
-                  Restablecer valores por defecto
+                  {t.settings.reset}
                 </button>
               </Section>
             </div>
@@ -92,6 +106,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 /** Miniatura del tema dibujada con SUS colores, fuente y esquinas. */
 function ThemeCard({ theme, active, onClick }: { theme: Theme; active: boolean; onClick: () => void }) {
+  const { t } = useT();
+  const [name, description] = t.themes[theme.id] ?? [theme.name, theme.description];
   const v = theme.vars;
   const r = parseInt(v["--radius"]);
   const accents = [v["--color-cpu"], v["--color-gpu"], v["--color-ram"]];
@@ -129,14 +145,14 @@ function ThemeCard({ theme, active, onClick }: { theme: Theme; active: boolean; 
         </div>
       </div>
       <div className="mt-2 flex items-center gap-1.5">
-        <span className="text-sm font-medium text-fg" style={{ fontFamily: v["--font-display"] }}>{theme.name}</span>
+        <span className="text-sm font-medium text-fg" style={{ fontFamily: v["--font-display"] }}>{name}</span>
         {active && (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-ok)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12l5 5L20 7" />
           </svg>
         )}
       </div>
-      <p className="text-xs leading-snug text-muted">{theme.description}</p>
+      <p className="text-xs leading-snug text-muted">{description}</p>
     </button>
   );
 }

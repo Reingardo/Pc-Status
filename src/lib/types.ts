@@ -2,6 +2,8 @@
 export interface Snapshot {
   time: number;
   admin: boolean;
+  /** Driver PawnIO: sin él no hay temperatura de CPU, ventiladores ni voltajes. */
+  pawnIo?: { installed: boolean; version: string | null };
   cpu: {
     name: string;
     load: number | null;

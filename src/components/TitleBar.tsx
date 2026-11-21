@@ -1,13 +1,10 @@
 import { motion } from "motion/react";
+import { useT } from "../lib/i18n";
 import { isTauri } from "../lib/useSensors";
 
 export type View = "dashboard" | "mypc" | "speedtest";
 
-const TABS: { id: View; label: string }[] = [
-  { id: "dashboard", label: "Panel" },
-  { id: "mypc", label: "Mi PC" },
-  { id: "speedtest", label: "Speedtest" },
-];
+const TABS: View[] = ["dashboard", "mypc", "speedtest"];
 
 async function win() {
   const { getCurrentWindow } = await import("@tauri-apps/api/window");
@@ -18,25 +15,26 @@ async function win() {
 export function TitleBar({ live, error, view, onView, onSettings }: {
   live: boolean; error: string | null; view: View; onView: (v: View) => void; onSettings: () => void;
 }) {
-  const status = error ? { text: "Sin sensores", color: "var(--color-hot)" }
-    : live ? { text: "En vivo", color: "var(--color-ok)" }
-    : { text: "Modo demo", color: "var(--color-warn)" };
+  const { t } = useT();
+  const status = error ? { text: t.status.noSensors, color: "var(--color-hot)" }
+    : live ? { text: t.status.live, color: "var(--color-ok)" }
+    : { text: t.status.demo, color: "var(--color-warn)" };
 
   return (
     <div data-tauri-drag-region className="relative flex h-12 shrink-0 select-none items-center justify-between pl-5">
       {/* Pestañas centradas */}
       <nav className="absolute left-1/2 flex -translate-x-1/2 gap-1 rounded-[var(--radius-pill)] border border-line bg-tint p-1">
-        {TABS.map((t) => (
-          <button key={t.id} onClick={() => onView(t.id)}
+        {TABS.map((id) => (
+          <button key={id} onClick={() => onView(id)}
             className={`relative rounded-[var(--radius-pill)] px-4 py-1 text-[13px] font-medium transition-colors ${
-              view === t.id ? "text-fg" : "text-muted hover:text-fg"}`}>
-            {view === t.id && (
+              view === id ? "text-fg" : "text-muted hover:text-fg"}`}>
+            {view === id && (
               <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-[var(--radius-pill)]"
                 style={{ background: "linear-gradient(135deg, color-mix(in oklab, var(--color-cpu) 30%, transparent), color-mix(in oklab, var(--color-gpu) 30%, transparent))",
                   boxShadow: "0 0 0 1px var(--color-line) inset" }}
                 transition={{ type: "spring", stiffness: 400, damping: 32 }} />
             )}
-            <span className="relative">{t.label}</span>
+            <span className="relative">{t.tabs[id]}</span>
           </button>
         ))}
       </nav>
@@ -51,7 +49,7 @@ export function TitleBar({ live, error, view, onView, onSettings }: {
         </span>
       </div>
       <div className="flex h-full items-center">
-        <button onClick={onSettings} aria-label="Ajustes" title="Ajustes"
+        <button onClick={onSettings} aria-label={t.window.settings} title={t.window.settings}
           className="group mr-2 flex h-8 w-8 items-center justify-center rounded-[var(--radius-pill)] text-muted transition-colors hover:bg-tint-2 hover:text-fg">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"
             strokeLinecap="round" strokeLinejoin="round"
@@ -62,13 +60,13 @@ export function TitleBar({ live, error, view, onView, onSettings }: {
         </button>
       {isTauri && (
         <div className="flex h-full">
-          <WinButton onClick={async () => (await win()).minimize()} label="Minimizar">
+          <WinButton onClick={async () => (await win()).minimize()} label={t.window.minimize}>
             <path d="M1 5.5h9" />
           </WinButton>
-          <WinButton onClick={async () => (await win()).toggleMaximize()} label="Maximizar">
+          <WinButton onClick={async () => (await win()).toggleMaximize()} label={t.window.maximize}>
             <rect x="1.5" y="1.5" width="8" height="8" rx="1" />
           </WinButton>
-          <WinButton onClick={async () => (await win()).close()} label="Cerrar" danger>
+          <WinButton onClick={async () => (await win()).close()} label={t.window.close} danger>
             <path d="M1.5 1.5l8 8M9.5 1.5l-8 8" />
           </WinButton>
         </div>

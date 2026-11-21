@@ -1,5 +1,7 @@
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
+import { Notices } from "./components/Notices";
+import { I18nProvider } from "./lib/i18n";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { TitleBar, type View } from "./components/TitleBar";
 import { useInventory } from "./lib/inventory";
@@ -39,18 +41,14 @@ export default function App() {
   const closeSettings = useCallback(() => setSettingsOpen(false), []);
 
   return (
+    <I18nProvider lang={settings.lang}>
     <MotionConfig reducedMotion={settings.animations ? "never" : "always"}>
     <div className="app flex h-screen flex-col overflow-hidden">
       <TitleBar live={live} error={error} view={view} onView={setView} onSettings={() => setSettingsOpen(true)} />
       <SettingsPanel open={settingsOpen} onClose={closeSettings} settings={settings} onChange={changeSettings} />
 
       <main className="flex-1 overflow-y-auto px-5 pb-5">
-        {view !== "speedtest" && (error || (data && !data.admin)) && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            className="mb-4 rounded-[var(--radius-sm)] border border-[color:var(--color-warn)]/30 bg-[color:var(--color-warn)]/10 px-4 py-2.5 text-sm text-fg">
-            {error ?? "Ejecuta PC Status como administrador para ver temperaturas, ventiladores y consumo."}
-          </motion.div>
-        )}
+        {view !== "speedtest" && <Notices data={data} error={error} />}
 
         <AnimatePresence mode="wait">
           <motion.div key={view}
@@ -64,5 +62,6 @@ export default function App() {
       </main>
     </div>
     </MotionConfig>
+    </I18nProvider>
   );
 }

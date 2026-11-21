@@ -57,6 +57,8 @@ export function demoSnapshot(prev: Snapshot | null): Snapshot {
   return {
     time: Date.now(),
     admin: true,
+    // ?nopawnio en la URL simula que falta el driver (para ver el aviso)
+    pawnIo: { installed: !new URLSearchParams(location.search).has("nopawnio"), version: "2.2.0" },
     cpu: {
       name: "Demo CPU 8-Core",
       load: cpuLoad,

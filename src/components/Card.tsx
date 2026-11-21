@@ -36,8 +36,9 @@ export function Card({ title, subtitle, accent = "var(--color-cpu)", className =
 /** Fila "etiqueta — valor" para estadísticas. */
 export function Stat({ label, value, color }: { label: string; value: React.ReactNode; color?: string }) {
   return (
-    <div className="flex flex-col gap-0.5">
-      <span className="text-[11px] uppercase tracking-wider text-muted">{label}</span>
+    <div className="flex min-w-0 flex-col gap-0.5">
+      {/* truncate: en otros idiomas las etiquetas pueden ser largas */}
+      <span className="truncate text-[11px] uppercase tracking-wider text-muted" title={label}>{label}</span>
       <span className="font-display text-lg font-medium tabular-nums" style={{ color: color ?? "var(--color-fg)" }}>
         {value}
       </span>

@@ -161,6 +161,12 @@ object Snapshot()
     {
         time = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
         admin = isAdmin,
+        // Driver que LibreHardwareMonitor necesita para temperaturas de CPU, ventiladores y voltajes.
+        pawnIo = new
+        {
+            installed = LibreHardwareMonitor.PawnIo.PawnIo.IsInstalled,
+            version = LibreHardwareMonitor.PawnIo.PawnIo.Version?.ToString(),
+        },
         cpu = cpu is null ? null : new
         {
             name = cpu.Name,

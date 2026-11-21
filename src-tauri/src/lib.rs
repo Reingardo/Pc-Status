@@ -1,8 +1,10 @@
 use std::io::{BufRead, BufReader, Write};
 use std::os::windows::process::CommandExt;
 use std::process::{Child, ChildStdin, Command, Stdio};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 
+use tauri::path::BaseDirectory;
 use tauri::{AppHandle, Emitter, Manager, RunEvent, State};
 
 mod speedtest;
@@ -17,12 +19,19 @@ struct Sensors {
     stdin: Mutex<Option<ChildStdin>>,
     /// Último inventario de hardware recibido (JSON), para la vista "Mi PC".
     inventory: Arc<Mutex<Option<String>>>,
+    /// Sube cada vez que se (re)inicia el sidecar; el lector de un proceso viejo no avisa de errores.
+    generation: Arc<AtomicU64>,
 }
 
 /// Lanza `pc-sensors.exe` (está junto al ejecutable de la app) y reenvía su salida:
 /// - líneas de inventario → se guardan y se emiten como evento `inventory`
 /// - el resto (lecturas por segundo) → evento `sensors`
-fn start_sensors(app: &AppHandle, inventory: Arc<Mutex<Option<String>>>) -> Result<Child, String> {
+fn start_sensors(
+    app: &AppHandle,
+    inventory: Arc<Mutex<Option<String>>>,
+    generation: Arc<AtomicU64>,
+    my_gen: u64,
+) -> Result<Child, String> {
     let exe = std::env::current_exe().map_err(|e| e.to_string())?;
     let path = exe
         .parent()
@@ -52,7 +61,9 @@ fn start_sensors(app: &AppHandle, inventory: Arc<Mutex<Option<String>>>) -> Resu
                 let _ = handle.emit("sensors", line);
             }
         }
-        let _ = handle.emit("sensors-error", "El proceso de sensores se detuvo.");
+        if generation.load(Ordering::SeqCst) == my_gen {
+            let _ = handle.emit("sensors-error", "El proceso de sensores se detuvo.");
+        }
     });
 
     Ok(child)
@@ -75,6 +86,63 @@ fn refresh_inventory(state: State<Sensors>) -> Result<(), String> {
         .map_err(|e| e.to_string())
 }
 
+/// Lanza el sidecar y lo guarda en el estado (al arrancar y al reiniciarlo).
+fn spawn_sensors(app: &AppHandle) -> Result<(), String> {
+    let state = app.state::<Sensors>();
+    let gen = state.generation.fetch_add(1, Ordering::SeqCst) + 1;
+    let mut child = start_sensors(app, state.inventory.clone(), state.generation.clone(), gen)?;
+    *state.stdin.lock().unwrap() = child.stdin.take();
+    *state.child.lock().unwrap() = Some(child);
+    Ok(())
+}
+
+/// Detiene el sidecar actual y arranca uno nuevo (p. ej. tras instalar PawnIO).
+fn restart_sensors(app: &AppHandle) -> Result<(), String> {
+    let state = app.state::<Sensors>();
+    // Subir la generación primero: así el hilo lector del proceso viejo no avisa de error.
+    state.generation.fetch_add(1, Ordering::SeqCst);
+    drop(state.stdin.lock().unwrap().take());
+    let old = state.child.lock().unwrap().take();
+    if let Some(mut c) = old {
+        let _ = c.kill();
+        let _ = c.wait();
+    }
+    spawn_sensors(app)
+}
+
+/// Ejecuta el instalador oficial de PawnIO incluido con la app. Windows pide permiso
+/// al usuario (UAC). Al terminar, reinicia el sidecar para que detecte el driver.
+#[tauri::command]
+async fn install_pawnio(app: AppHandle) -> Result<(), String> {
+    let setup = app
+        .path()
+        .resolve("PawnIO_setup.exe", BaseDirectory::Resource)
+        .map_err(|e| e.to_string())?;
+    if !setup.exists() {
+        return Err(format!("No se encuentra el instalador de PawnIO en {}", setup.display()));
+    }
+
+    // Start-Process -Verb RunAs muestra el aviso de UAC aunque la app no sea administradora.
+    let script = format!(
+        "$p = Start-Process -FilePath '{}' -ArgumentList '-install' -Verb RunAs -Wait -PassThru; exit $p.ExitCode",
+        setup.display().to_string().replace('\'', "''")
+    );
+    let status = tauri::async_runtime::spawn_blocking(move || {
+        Command::new("powershell")
+            .args(["-NoProfile", "-NonInteractive", "-Command", &script])
+            .creation_flags(CREATE_NO_WINDOW)
+            .status()
+    })
+    .await
+    .map_err(|e| e.to_string())?
+    .map_err(|e| e.to_string())?;
+
+    if !status.success() {
+        return Err("La instalación de PawnIO se canceló o falló.".into());
+    }
+    restart_sensors(&app)
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -85,14 +153,11 @@ pub fn run() {
             refresh_inventory,
             speedtest::start_speedtest,
             speedtest::cancel_speedtest,
+            install_pawnio,
         ])
         .setup(|app| {
-            let state = app.state::<Sensors>();
-            match start_sensors(app.handle(), state.inventory.clone()) {
-                Ok(mut child) => {
-                    *state.stdin.lock().unwrap() = child.stdin.take();
-                    *state.child.lock().unwrap() = Some(child);
-                }
+            match spawn_sensors(app.handle()) {
+                Ok(()) => {}
                 Err(e) => {
                     eprintln!("[pc-status] {e}");
                     let h = app.handle().clone();

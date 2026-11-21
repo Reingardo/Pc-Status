@@ -9,8 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "sensors": "node scripts/build-sensors.mjs --force",
-    "app": "node scripts/build-sensors.mjs && tauri dev",
-    "app:build": "node scripts/build-sensors.mjs --force && tauri build",
+    "app": "node scripts/build-sensors.mjs && node scripts/fetch-pawnio.mjs && tauri dev",
+    "app:build": "node scripts/build-sensors.mjs --force && node scripts/fetch-pawnio.mjs && tauri build",
     "tauri": "tauri"
   },
   "dependencies": {

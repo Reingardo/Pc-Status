@@ -1,3 +1,5 @@
+import { detectLang } from "./i18n";
+
 // Temas de PC Status. Cada tema define TODAS las variables de estilo:
 // colores, esquinas, brillo, fuentes, fondo y aspecto de las tarjetas.
 // Para crear tu propio tema, copia uno de abajo y cambia los valores.
@@ -177,11 +179,12 @@ export const THEMES: Theme[] = [
 
 export interface Settings {
   theme: string;
+  lang: string;
   glow: number; // multiplicador del brillo del tema (0–2)
   animations: boolean;
 }
 
-export const DEFAULT_SETTINGS: Settings = { theme: "neon", glow: 1, animations: true };
+export const DEFAULT_SETTINGS: Settings = { theme: "neon", lang: detectLang(), glow: 1, animations: true };
 const KEY = "pcstatus.settings";
 
 export function loadSettings(): Settings {
@@ -192,6 +195,9 @@ export function loadSettings(): Settings {
   } catch { /* sin almacenamiento */ }
   // ?theme=cyberpunk fuerza un tema sin guardarlo (útil para capturas / demos).
   const forced = new URLSearchParams(location.search).get("theme");
+  const params = new URLSearchParams(location.search);
+  const lang = params.get("lang");
+  if (lang) s = { ...s, lang };
   return forced && THEMES.some((t) => t.id === forced) ? { ...s, theme: forced } : s;
 }
 
@@ -208,6 +214,7 @@ export function applySettings(s: Settings) {
   for (const [k, v] of Object.entries(theme.vars)) root.style.setProperty(k, v);
   root.style.setProperty("--glow", String(Number(theme.vars["--glow"]) * s.glow));
   root.dataset.theme = theme.id;
+  root.lang = s.lang;
   root.dataset.animations = s.animations ? "on" : "off";
   root.style.colorScheme = theme.id === "light" ? "light" : "dark";
 }

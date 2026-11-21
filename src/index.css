@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   TEMA
+   Los valores reales los pone cada tema desde src/lib/themes.ts (se aplican
+   como variables CSS en <html>). Estos son solo los valores por defecto.
+   ========================================================================== */
+@theme {
+  --font-sans: "Inter Variable", "Segoe UI Variable Text", system-ui, sans-serif;
+  --font-display: "Space Grotesk Variable", "Segoe UI Variable Display", system-ui, sans-serif;
+
+  --color-bg: #07090f;
+  --color-track: #161b27;
+  --color-fg: #e8ecf4;
+  --color-muted: #7c869b;
+
+  --color-cpu: #22d3ee;
+  --color-cpu-2: #3b82f6;
+  --color-gpu: #a855f7;
+  --color-gpu-2: #ec4899;
+  --color-ram: #f472b6;
+  --color-ram-2: #f59e0b;
+  --color-net: #34d399;
+  --color-fan: #38bdf8;
+  --color-disk: #818cf8;
+
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-hot: #f87171;
+
+  /* Superposiciones (se invierten en el tema claro) */
+  --color-tint: rgb(255 255 255 / 0.04);
+  --color-tint-2: rgb(255 255 255 / 0.08);
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-inset: rgb(0 0 0 / 0.22);
+}
+
+:root {
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-xs: 6px;
+  --radius-pill: 999px;
+  --glow: 1;
+  --card-bg: rgb(255 255 255 / 0.03);
+  --card-border: rgb(255 255 255 / 0.07);
+  --card-shadow: none;
+  --card-blur: 16px;
+  --app-bg: var(--color-bg);
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: default;
+}
+
+/* Fondo de la app */
+.app {
+  position: relative;
+  background: var(--app-bg);
+  transition: background 0.4s;
+}
+
+/* Tarjeta */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(var(--card-blur));
+  transition: border-color 0.3s, background 0.4s, box-shadow 0.4s;
+}
+.card:hover { border-color: color-mix(in oklab, var(--accent, var(--color-cpu)) 40%, transparent); }
+
+/* Manchas de color detrás de las tarjetas: su intensidad depende del brillo */
+.glow-blob { opacity: calc(var(--glow) * 0.2); }
+
+/* Carga: brillo que recorre la tarjeta */
+.shimmer {
+  background: linear-gradient(100deg, var(--color-tint) 30%, var(--color-tint-2) 50%, var(--color-tint) 70%);
+  background-size: 200% 100%;
+  border: 1px solid var(--color-line);
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* Onda que sale del botón INICIAR */
+.pulse-ring { animation: pulse-ring 2.2s ease-out infinite; }
+@keyframes pulse-ring { from { transform: scale(1); opacity: 0.7; } to { transform: scale(1.35); opacity: 0; } }
+
+.pulse { animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.35; } }
+
+/* ----------------------------------------------------- estilos por tema */
+
+/* Cyberpunk: esquina cortada, borde del color de la tarjeta y franja lateral */
+[data-theme="cyberpunk"] .card {
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+  border-color: color-mix(in oklab, var(--accent, var(--color-cpu)) 40%, transparent);
+  box-shadow: inset 3px 0 0 var(--accent, var(--color-cpu));
+}
+[data-theme="cyberpunk"] .card h2 { letter-spacing: 0.24em; }
+
+/* Terminal y Cyberpunk: líneas de monitor CRT */
+[data-theme="terminal"] .app::after,
+[data-theme="cyberpunk"] .app::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.18) 0 1px, transparent 1px 3px);
+  z-index: 50;
+}
+[data-theme="cyberpunk"] .app::after { opacity: 0.5; }
+[data-theme="terminal"] .app { text-shadow: 0 0 6px rgb(57 255 20 / 0.35); }
+
+/* Sin animaciones */
+[data-animations="off"] *,
+[data-animations="off"] *::before,
+[data-animations="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Scrollbar fina */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }

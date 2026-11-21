@@ -1,0 +1,9 @@
+node_modules
+dist
+src-tauri/target
+src-tauri/gen
+src-tauri/binaries/*.exe
+sensors/bin
+sensors/obj
+sensors/publish
+.claude/

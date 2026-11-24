@@ -111,16 +111,26 @@ fn restart_sensors(app: &AppHandle) -> Result<(), String> {
     spawn_sensors(app)
 }
 
+/// Página oficial de PawnIO, para la versión de la Microsoft Store (que no incluye el instalador).
+const PAWNIO_URL: &str = "https://pawnio.eu/";
+
 /// Ejecuta el instalador oficial de PawnIO incluido con la app. Windows pide permiso
 /// al usuario (UAC). Al terminar, reinicia el sidecar para que detecte el driver.
+///
+/// El paquete MSIX de la Microsoft Store no incluye drivers ni su instalador: en ese
+/// caso abre la página oficial de PawnIO en el navegador y devuelve `"opened"`.
 #[tauri::command]
-async fn install_pawnio(app: AppHandle) -> Result<(), String> {
+async fn install_pawnio(app: AppHandle) -> Result<&'static str, String> {
     let setup = app
         .path()
         .resolve("PawnIO_setup.exe", BaseDirectory::Resource)
         .map_err(|e| e.to_string())?;
     if !setup.exists() {
-        return Err(format!("No se encuentra el instalador de PawnIO en {}", setup.display()));
+        Command::new("explorer.exe")
+            .arg(PAWNIO_URL)
+            .spawn()
+            .map_err(|e| e.to_string())?;
+        return Ok("opened");
     }
 
     // Start-Process -Verb RunAs muestra el aviso de UAC aunque la app no sea administradora.
@@ -141,7 +151,8 @@ async fn install_pawnio(app: AppHandle) -> Result<(), String> {
     if !status.success() {
         return Err("La instalación de PawnIO se canceló o falló.".into());
     }
-    restart_sensors(&app)
+    restart_sensors(&app)?;
+    Ok("installed")
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

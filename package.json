@@ -11,6 +11,7 @@
     "sensors": "node scripts/build-sensors.mjs --force",
     "app": "node scripts/build-sensors.mjs && node scripts/fetch-pawnio.mjs && tauri dev",
     "app:build": "node scripts/build-sensors.mjs --force && node scripts/fetch-pawnio.mjs && tauri build",
+    "msix": "node scripts/build-msix.mjs",
     "tauri": "tauri"
   },
   "dependencies": {

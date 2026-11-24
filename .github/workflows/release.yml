@@ -62,6 +62,17 @@ jobs:
           Copy-Item $setup.FullName out/PC-Status_x64-setup.exe
           Get-FileHash out/PC-Status_x64-setup.exe -Algorithm SHA256 | Format-List
 
+      # Paquete para la Microsoft Store: se sube a Partner Center y Microsoft lo firma al publicarlo
+      - name: Empaquetar MSIX (Microsoft Store)
+        run: npm run msix
+
+      - name: Subir MSIX
+        uses: actions/upload-artifact@v4
+        with:
+          name: PC-Status-msix
+          path: src-tauri/target/release/msix/PC-Status_x64.msix
+          if-no-files-found: error
+
       - name: Subir instalador sin firmar
         id: upload-unsigned
         uses: actions/upload-artifact@v4

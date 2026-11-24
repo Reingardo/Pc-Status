@@ -21,7 +21,12 @@ export function Notices({ data, error }: { data: Snapshot | null; error: string 
     try {
       if (isTauri) {
         const { invoke } = await import("@tauri-apps/api/core");
-        await invoke("install_pawnio");
+        // "opened": versión de la Store, se abrió la página oficial de PawnIO
+        const r = await invoke<string>("install_pawnio");
+        if (r === "opened") {
+          setResult(t.notices.pawnOpened);
+          return;
+        }
       } else {
         await new Promise((r) => setTimeout(r, 1500)); // demo
       }

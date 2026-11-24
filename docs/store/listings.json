@@ -1,0 +1,146 @@
+{
+  "es": {
+    "description": "PC Status es un monitor de hardware para Windows con un diseño moderno y personalizable. Ve de un vistazo cómo trabaja tu PC: uso y temperatura de la CPU y la GPU, memoria, núcleos, red, ventiladores y discos, con medidores animados y gráficas en tiempo real.\n\n• Panel en tiempo real: CPU, GPU, RAM, núcleos, red, ventiladores y discos con gráficas de 60 segundos.\n• Mi PC: inventario completo del hardware (procesador, gráfica, placa base y BIOS, RAM por ranura, discos, pantallas, red y audio). Avisa si tu RAM funciona por debajo de su velocidad (XMP/EXPO desactivado).\n• Procesos: qué aplicaciones consumen CPU, RAM y disco, con buscador y opción para finalizarlas.\n• Alertas: notificación de Windows cuando la CPU, la GPU o un disco se calientan demasiado, con historial.\n• Speedtest: ping, jitter, descarga y subida con velocímetro e historial.\n• 6 temas (Neón, Cyberpunk, Minimal, Aurora, Terminal y Claro) y 9 idiomas.\n\nSin anuncios, sin cuentas y sin recopilar datos. Código abierto (MIT).\n\nNota: para leer temperaturas de CPU, ventiladores y voltajes, la app pide permisos de administrador y usa el driver gratuito PawnIO. Si no lo tienes, PC Status te indica cómo instalarlo desde su página oficial.",
+    "short": "Monitor de hardware para Windows: temperaturas, uso de CPU y GPU, ventiladores, procesos, alertas y speedtest, con 6 temas y 9 idiomas.",
+    "features": [
+      "Monitoreo en tiempo real de CPU, GPU, RAM, red, ventiladores y discos",
+      "Inventario completo del hardware de tu PC",
+      "Detecta RAM funcionando por debajo de su velocidad (XMP/EXPO)",
+      "Procesos con consumo de CPU, RAM y disco",
+      "Alertas de temperatura con notificaciones de Windows",
+      "Prueba de velocidad de internet con historial",
+      "6 temas visuales y 9 idiomas",
+      "Sin anuncios ni recopilación de datos"
+    ],
+    "keywords": ["monitor de hardware", "temperatura CPU", "temperatura GPU", "ventiladores", "speedtest", "procesos", "rendimiento"],
+    "shots": "es"
+  },
+  "en": {
+    "description": "PC Status is a hardware monitor for Windows with a modern, customizable design. See at a glance how your PC is doing: CPU and GPU usage and temperature, memory, cores, network, fans and drives, with animated gauges and real-time charts.\n\n• Real-time dashboard: CPU, GPU, RAM, cores, network, fans and drives with 60-second charts.\n• My PC: full hardware inventory (processor, graphics, motherboard and BIOS, RAM per slot, drives, displays, network and audio). Warns you if your RAM runs below its rated speed (XMP/EXPO disabled).\n• Processes: see which apps use CPU, RAM and disk, with search and the option to end them.\n• Alerts: Windows notification when the CPU, GPU or a drive gets too hot, with history.\n• Speedtest: ping, jitter, download and upload with a speedometer and history.\n• 6 themes (Neon, Cyberpunk, Minimal, Aurora, Terminal and Light) and 9 languages.\n\nNo ads, no accounts and no data collection. Open source (MIT).\n\nNote: to read CPU temperatures, fans and voltages, the app asks for administrator rights and uses the free PawnIO driver. If it's missing, PC Status shows you how to install it from its official page.",
+    "short": "Hardware monitor for Windows: temperatures, CPU and GPU usage, fans, processes, alerts and speed test, with 6 themes and 9 languages.",
+    "features": [
+      "Real-time monitoring of CPU, GPU, RAM, network, fans and drives",
+      "Full hardware inventory of your PC",
+      "Detects RAM running below its rated speed (XMP/EXPO)",
+      "Processes with CPU, RAM and disk usage",
+      "Temperature alerts with Windows notifications",
+      "Internet speed test with history",
+      "6 visual themes and 9 languages",
+      "No ads and no data collection"
+    ],
+    "keywords": ["hardware monitor", "CPU temperature", "GPU temperature", "fans", "speed test", "processes", "performance"],
+    "shots": "en"
+  },
+  "pt": {
+    "description": "PC Status é um monitor de hardware para Windows com um design moderno e personalizável. Veja num relance como seu PC está trabalhando: uso e temperatura da CPU e da GPU, memória, núcleos, rede, ventoinhas e discos, com medidores animados e gráficos em tempo real.\n\n• Painel em tempo real: CPU, GPU, RAM, núcleos, rede, ventoinhas e discos com gráficos de 60 segundos.\n• Meu PC: inventário completo do hardware (processador, placa de vídeo, placa-mãe e BIOS, RAM por slot, discos, monitores, rede e áudio). Avisa se a sua RAM roda abaixo da velocidade nominal (XMP/EXPO desativado).\n• Processos: veja quais aplicativos usam CPU, RAM e disco, com busca e opção de finalizá-los.\n• Alertas: notificação do Windows quando a CPU, a GPU ou um disco esquentam demais, com histórico.\n• Speedtest: ping, jitter, download e upload com velocímetro e histórico.\n• 6 temas e 9 idiomas.\n\nSem anúncios, sem contas e sem coleta de dados. Código aberto (MIT).\n\nObservação: para ler temperaturas da CPU, ventoinhas e tensões, o app pede permissões de administrador e usa o driver gratuito PawnIO. Se ele não estiver instalado, o PC Status mostra como instalá-lo pela página oficial.",
+    "short": "Monitor de hardware para Windows: temperaturas, uso de CPU e GPU, ventoinhas, processos, alertas e speedtest, com 6 temas e 9 idiomas.",
+    "features": [
+      "Monitoramento em tempo real de CPU, GPU, RAM, rede, ventoinhas e discos",
+      "Inventário completo do hardware do seu PC",
+      "Detecta RAM rodando abaixo da velocidade nominal (XMP/EXPO)",
+      "Processos com uso de CPU, RAM e disco",
+      "Alertas de temperatura com notificações do Windows",
+      "Teste de velocidade da internet com histórico",
+      "6 temas visuais e 9 idiomas",
+      "Sem anúncios e sem coleta de dados"
+    ],
+    "keywords": ["monitor de hardware", "temperatura CPU", "temperatura GPU", "ventoinhas", "speedtest", "processos", "desempenho"],
+    "shots": "pt"
+  },
+  "fr": {
+    "description": "PC Status est un moniteur matériel pour Windows au design moderne et personnalisable. Voyez d'un coup d'œil comment se porte votre PC : utilisation et température du CPU et du GPU, mémoire, cœurs, réseau, ventilateurs et disques, avec des jauges animées et des graphiques en temps réel.\n\n• Tableau de bord en temps réel : CPU, GPU, RAM, cœurs, réseau, ventilateurs et disques avec des graphiques sur 60 secondes.\n• Mon PC : inventaire matériel complet (processeur, carte graphique, carte mère et BIOS, RAM par emplacement, disques, écrans, réseau et audio). Vous avertit si votre RAM tourne en dessous de sa fréquence nominale (XMP/EXPO désactivé).\n• Processus : quelles applications utilisent le CPU, la RAM et le disque, avec recherche et possibilité de les arrêter.\n• Alertes : notification Windows lorsque le CPU, le GPU ou un disque chauffe trop, avec historique.\n• Speedtest : ping, gigue, téléchargement et envoi avec compteur de vitesse et historique.\n• 6 thèmes et 9 langues.\n\nSans publicité, sans compte et sans collecte de données. Open source (MIT).\n\nRemarque : pour lire les températures du CPU, les ventilateurs et les tensions, l'application demande les droits administrateur et utilise le pilote gratuit PawnIO. S'il est absent, PC Status vous indique comment l'installer depuis son site officiel.",
+    "short": "Moniteur matériel pour Windows : températures, utilisation CPU et GPU, ventilateurs, processus, alertes et test de débit, avec 6 thèmes et 9 langues.",
+    "features": [
+      "Surveillance en temps réel du CPU, GPU, RAM, réseau, ventilateurs et disques",
+      "Inventaire matériel complet de votre PC",
+      "Détecte la RAM tournant sous sa fréquence nominale (XMP/EXPO)",
+      "Processus avec utilisation CPU, RAM et disque",
+      "Alertes de température avec notifications Windows",
+      "Test de débit Internet avec historique",
+      "6 thèmes visuels et 9 langues",
+      "Sans publicité ni collecte de données"
+    ],
+    "keywords": ["moniteur matériel", "température CPU", "température GPU", "ventilateurs", "test de débit", "processus", "performances"],
+    "shots": "fr"
+  },
+  "de": {
+    "description": "PC Status ist ein Hardware-Monitor für Windows mit modernem, anpassbarem Design. Sieh auf einen Blick, wie es deinem PC geht: Auslastung und Temperatur von CPU und GPU, Arbeitsspeicher, Kerne, Netzwerk, Lüfter und Laufwerke, mit animierten Anzeigen und Echtzeit-Diagrammen.\n\n• Echtzeit-Dashboard: CPU, GPU, RAM, Kerne, Netzwerk, Lüfter und Laufwerke mit 60-Sekunden-Diagrammen.\n• Mein PC: vollständiges Hardware-Inventar (Prozessor, Grafikkarte, Mainboard und BIOS, RAM pro Steckplatz, Laufwerke, Bildschirme, Netzwerk und Audio). Warnt, wenn dein RAM unter seiner Nenngeschwindigkeit läuft (XMP/EXPO deaktiviert).\n• Prozesse: welche Apps CPU, RAM und Datenträger nutzen, mit Suche und der Möglichkeit, sie zu beenden.\n• Warnungen: Windows-Benachrichtigung, wenn CPU, GPU oder ein Laufwerk zu heiß wird, mit Verlauf.\n• Speedtest: Ping, Jitter, Download und Upload mit Tachometer und Verlauf.\n• 6 Designs und 9 Sprachen.\n\nKeine Werbung, keine Konten und keine Datenerfassung. Open Source (MIT).\n\nHinweis: Um CPU-Temperaturen, Lüfter und Spannungen zu lesen, fordert die App Administratorrechte an und nutzt den kostenlosen PawnIO-Treiber. Fehlt er, zeigt PC Status dir, wie du ihn von der offiziellen Seite installierst.",
+    "short": "Hardware-Monitor für Windows: Temperaturen, CPU- und GPU-Auslastung, Lüfter, Prozesse, Warnungen und Speedtest, mit 6 Designs und 9 Sprachen.",
+    "features": [
+      "Echtzeit-Überwachung von CPU, GPU, RAM, Netzwerk, Lüftern und Laufwerken",
+      "Vollständiges Hardware-Inventar deines PCs",
+      "Erkennt RAM unter seiner Nenngeschwindigkeit (XMP/EXPO)",
+      "Prozesse mit CPU-, RAM- und Datenträgernutzung",
+      "Temperaturwarnungen mit Windows-Benachrichtigungen",
+      "Internet-Speedtest mit Verlauf",
+      "6 Designs und 9 Sprachen",
+      "Keine Werbung und keine Datenerfassung"
+    ],
+    "keywords": ["Hardware-Monitor", "CPU-Temperatur", "GPU-Temperatur", "Lüfter", "Speedtest", "Prozesse", "Leistung"],
+    "shots": "de"
+  },
+  "it": {
+    "description": "PC Status è un monitor hardware per Windows con un design moderno e personalizzabile. Guarda a colpo d'occhio come sta lavorando il tuo PC: utilizzo e temperatura di CPU e GPU, memoria, core, rete, ventole e dischi, con indicatori animati e grafici in tempo reale.\n\n• Pannello in tempo reale: CPU, GPU, RAM, core, rete, ventole e dischi con grafici di 60 secondi.\n• Il mio PC: inventario hardware completo (processore, scheda video, scheda madre e BIOS, RAM per slot, dischi, schermi, rete e audio). Ti avvisa se la RAM funziona sotto la sua velocità nominale (XMP/EXPO disattivato).\n• Processi: quali app usano CPU, RAM e disco, con ricerca e possibilità di terminarle.\n• Avvisi: notifica di Windows quando CPU, GPU o un disco si scaldano troppo, con cronologia.\n• Speedtest: ping, jitter, download e upload con tachimetro e cronologia.\n• 6 temi e 9 lingue.\n\nNiente pubblicità, niente account e nessuna raccolta di dati. Open source (MIT).\n\nNota: per leggere le temperature della CPU, le ventole e le tensioni, l'app chiede i permessi di amministratore e usa il driver gratuito PawnIO. Se manca, PC Status ti mostra come installarlo dal sito ufficiale.",
+    "short": "Monitor hardware per Windows: temperature, utilizzo di CPU e GPU, ventole, processi, avvisi e speedtest, con 6 temi e 9 lingue.",
+    "features": [
+      "Monitoraggio in tempo reale di CPU, GPU, RAM, rete, ventole e dischi",
+      "Inventario hardware completo del tuo PC",
+      "Rileva la RAM che funziona sotto la velocità nominale (XMP/EXPO)",
+      "Processi con utilizzo di CPU, RAM e disco",
+      "Avvisi di temperatura con notifiche di Windows",
+      "Test di velocità di internet con cronologia",
+      "6 temi visivi e 9 lingue",
+      "Niente pubblicità e nessuna raccolta di dati"
+    ],
+    "keywords": ["monitor hardware", "temperatura CPU", "temperatura GPU", "ventole", "speedtest", "processi", "prestazioni"],
+    "shots": "it"
+  },
+  "ru": {
+    "description": "PC Status — монитор оборудования для Windows с современным настраиваемым дизайном. С первого взгляда видно, как работает ваш ПК: загрузка и температура CPU и GPU, память, ядра, сеть, вентиляторы и диски — с анимированными индикаторами и графиками в реальном времени.\n\n• Панель в реальном времени: CPU, GPU, ОЗУ, ядра, сеть, вентиляторы и диски с графиками за 60 секунд.\n• Мой ПК: полный список оборудования (процессор, видеокарта, материнская плата и BIOS, ОЗУ по слотам, диски, мониторы, сеть и звук). Предупреждает, если ОЗУ работает ниже номинальной частоты (XMP/EXPO выключен).\n• Процессы: какие приложения нагружают CPU, ОЗУ и диск, с поиском и возможностью их завершить.\n• Оповещения: уведомление Windows, когда CPU, GPU или диск перегреваются, с историей.\n• Спидтест: пинг, джиттер, загрузка и отдача со спидометром и историей.\n• 6 тем и 9 языков.\n\nБез рекламы, без аккаунтов и без сбора данных. Открытый исходный код (MIT).\n\nПримечание: чтобы читать температуру CPU, вентиляторы и напряжения, приложение запрашивает права администратора и использует бесплатный драйвер PawnIO. Если его нет, PC Status подскажет, как установить его с официального сайта.",
+    "short": "Монитор оборудования для Windows: температуры, загрузка CPU и GPU, вентиляторы, процессы, оповещения и спидтест. 6 тем и 9 языков.",
+    "features": [
+      "Мониторинг CPU, GPU, ОЗУ, сети, вентиляторов и дисков в реальном времени",
+      "Полный список оборудования вашего ПК",
+      "Определяет ОЗУ, работающую ниже номинальной частоты (XMP/EXPO)",
+      "Процессы с нагрузкой на CPU, ОЗУ и диск",
+      "Оповещения о температуре с уведомлениями Windows",
+      "Тест скорости интернета с историей",
+      "6 тем оформления и 9 языков",
+      "Без рекламы и без сбора данных"
+    ],
+    "keywords": ["монитор оборудования", "температура CPU", "температура GPU", "вентиляторы", "спидтест", "процессы", "производительность"],
+    "shots": "ru"
+  },
+  "zh": {
+    "description": "PC Status 是一款适用于 Windows 的硬件监控工具，设计现代且可自定义。一眼看清电脑的运行状态：CPU 和 GPU 的占用与温度、内存、核心、网络、风扇和硬盘，配有动态仪表和实时图表。\n\n• 实时面板：CPU、GPU、内存、核心、网络、风扇和硬盘，附 60 秒图表。\n• 我的电脑：完整的硬件清单（处理器、显卡、主板和 BIOS、各插槽内存、硬盘、显示器、网络和音频）。内存低于额定频率运行时（未开启 XMP/EXPO）会提醒你。\n• 进程：查看哪些应用占用 CPU、内存和磁盘，支持搜索并可结束进程。\n• 警报：CPU、GPU 或硬盘过热时发送 Windows 通知，并保留历史记录。\n• 网速测试：延迟、抖动、下载和上传，配速度表和历史记录。\n• 6 种主题和 9 种语言。\n\n无广告、无需账户、不收集数据。开源（MIT）。\n\n注意：读取 CPU 温度、风扇和电压需要管理员权限，并使用免费的 PawnIO 驱动。如果未安装，PC Status 会告诉你如何从官方网站安装。",
+    "short": "Windows 硬件监控：温度、CPU 和 GPU 占用、风扇、进程、警报和网速测试，提供 6 种主题和 9 种语言。",
+    "features": [
+      "实时监控 CPU、GPU、内存、网络、风扇和硬盘",
+      "完整的电脑硬件清单",
+      "检测低于额定频率运行的内存（XMP/EXPO）",
+      "显示 CPU、内存和磁盘占用的进程列表",
+      "温度警报和 Windows 通知",
+      "带历史记录的网速测试",
+      "6 种视觉主题和 9 种语言",
+      "无广告，不收集数据"
+    ],
+    "keywords": ["硬件监控", "CPU 温度", "GPU 温度", "风扇", "网速测试", "进程", "性能"],
+    "shots": "zh"
+  },
+  "ja": {
+    "description": "PC Status は、モダンでカスタマイズ可能なデザインの Windows 向けハードウェアモニターです。CPU と GPU の使用率と温度、メモリ、コア、ネットワーク、ファン、ドライブを、アニメーションするメーターとリアルタイムグラフでひと目で確認できます。\n\n• リアルタイムダッシュボード：CPU、GPU、RAM、コア、ネットワーク、ファン、ドライブを 60 秒グラフで表示。\n• マイ PC：ハードウェアの詳細一覧（プロセッサー、グラフィックス、マザーボードと BIOS、スロットごとの RAM、ドライブ、ディスプレイ、ネットワーク、オーディオ）。RAM が定格速度より低く動作している場合（XMP/EXPO 無効）に通知します。\n• プロセス：CPU、RAM、ディスクを使っているアプリを確認し、検索や終了ができます。\n• アラート：CPU、GPU、ドライブが熱くなりすぎると Windows 通知でお知らせし、履歴も残ります。\n• 速度テスト：Ping、ジッター、ダウンロード、アップロードをスピードメーターと履歴で表示。\n• 6 つのテーマと 9 つの言語。\n\n広告なし、アカウント不要、データ収集なし。オープンソース（MIT）。\n\n注意：CPU 温度、ファン、電圧を読み取るため、アプリは管理者権限を要求し、無料の PawnIO ドライバーを使用します。未インストールの場合は、公式サイトからのインストール方法を表示します。",
+    "short": "Windows 向けハードウェアモニター：温度、CPU と GPU の使用率、ファン、プロセス、アラート、速度テスト。6 つのテーマと 9 つの言語に対応。",
+    "features": [
+      "CPU、GPU、RAM、ネットワーク、ファン、ドライブをリアルタイムで監視",
+      "PC のハードウェアの詳細一覧",
+      "定格速度より低く動作する RAM を検出（XMP/EXPO）",
+      "CPU、RAM、ディスク使用量付きのプロセス一覧",
+      "Windows 通知による温度アラート",
+      "履歴付きのインターネット速度テスト",
+      "6 つのテーマと 9 つの言語",
+      "広告なし、データ収集なし"
+    ],
+    "keywords": ["ハードウェアモニター", "CPU 温度", "GPU 温度", "ファン", "速度テスト", "プロセス", "パフォーマンス"],
+    "shots": "ja"
+  }
+}

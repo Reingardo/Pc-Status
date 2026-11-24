@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Manifiesto del paquete MSIX para la Microsoft Store.
+  scripts/build-msix.mjs rellena Version con la versión de package.json (x.y.z.0).
+  La identidad (Name, Publisher) viene de Partner Center → PC Status → Product identity.
+  La Store firma el paquete al publicarlo: no hace falta certificado propio.
+-->
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap">
+
+  <Identity
+    Name="EdRos.PCStatus"
+    Publisher="CN=BE31C71B-F8D9-4853-9554-9F8ABF834F72"
+    Version="{{VERSION}}"
+    ProcessorArchitecture="x64" />
+
+  <Properties>
+    <DisplayName>PC Status</DisplayName>
+    <PublisherDisplayName>EdRos</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="es-MX" />
+    <Resource Language="es-ES" />
+    <Resource Language="en-US" />
+    <Resource Language="pt-BR" />
+    <Resource Language="fr-FR" />
+    <Resource Language="de-DE" />
+    <Resource Language="it-IT" />
+    <Resource Language="ru-RU" />
+    <Resource Language="zh-CN" />
+    <Resource Language="ja-JP" />
+  </Resources>
+
+  <Applications>
+    <Application Id="PCStatus" Executable="pc-status.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="PC Status"
+        Description="Monitor de hardware para Windows: temperaturas, uso, ventiladores, procesos y speedtest."
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png" />
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <!-- Ejecutar como app de escritorio (Win32) -->
+    <rescap:Capability Name="runFullTrust" />
+    <!-- LibreHardwareMonitor necesita administrador para leer temperaturas, ventiladores y voltajes -->
+    <rescap:Capability Name="allowElevation" />
+  </Capabilities>
+</Package>

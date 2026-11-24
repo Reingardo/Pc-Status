@@ -17,6 +17,7 @@ const es = {
     pawnInstalling: "Instalando…",
     pawnDone: "PawnIO instalado. Reiniciando los sensores…",
     pawnFailed: "La instalación de PawnIO se canceló o falló.",
+    pawnOpened: "Se abrió la página oficial de PawnIO: instálalo desde ahí y reinicia PC Status.",
   },
   dash: {
     cpu: "Procesador", gpu: "Gráfica", memory: "Memoria", usage: "Uso", frequency: "Frecuencia", power: "Consumo",
@@ -110,6 +111,7 @@ const en: Dict = {
     pawnInstalling: "Installing…",
     pawnDone: "PawnIO installed. Restarting sensors…",
     pawnFailed: "PawnIO installation was cancelled or failed.",
+    pawnOpened: "The official PawnIO page has opened: install it from there and restart PC Status.",
   },
   dash: {
     cpu: "Processor", gpu: "Graphics", memory: "Memory", usage: "Usage", frequency: "Frequency", power: "Power",
@@ -201,6 +203,7 @@ const pt: Dict = {
     pawnInstalling: "Instalando…",
     pawnDone: "PawnIO instalado. Reiniciando os sensores…",
     pawnFailed: "A instalação do PawnIO foi cancelada ou falhou.",
+    pawnOpened: "A página oficial do PawnIO foi aberta: instale-o por lá e reinicie o PC Status.",
   },
   dash: {
     cpu: "Processador", gpu: "Placa de vídeo", memory: "Memória", usage: "Uso", frequency: "Frequência", power: "Consumo",
@@ -292,6 +295,7 @@ const fr: Dict = {
     pawnInstalling: "Installation…",
     pawnDone: "PawnIO installé. Redémarrage des capteurs…",
     pawnFailed: "L'installation de PawnIO a été annulée ou a échoué.",
+    pawnOpened: "La page officielle de PawnIO s’est ouverte : installez-le depuis celle-ci et redémarrez PC Status.",
   },
   dash: {
     cpu: "Processeur", gpu: "Carte graphique", memory: "Mémoire", usage: "Utilisation", frequency: "Fréquence", power: "Consommation",
@@ -383,6 +387,7 @@ const de: Dict = {
     pawnInstalling: "Wird installiert…",
     pawnDone: "PawnIO installiert. Sensoren werden neu gestartet…",
     pawnFailed: "Die Installation von PawnIO wurde abgebrochen oder ist fehlgeschlagen.",
+    pawnOpened: "Die offizielle PawnIO-Seite wurde geöffnet: Installiere es dort und starte PC Status neu.",
   },
   dash: {
     cpu: "Prozessor", gpu: "Grafikkarte", memory: "Arbeitsspeicher", usage: "Auslastung", frequency: "Takt", power: "Leistung",
@@ -474,6 +479,7 @@ const it: Dict = {
     pawnInstalling: "Installazione…",
     pawnDone: "PawnIO installato. Riavvio dei sensori…",
     pawnFailed: "L'installazione di PawnIO è stata annullata o non è riuscita.",
+    pawnOpened: "Si è aperta la pagina ufficiale di PawnIO: installalo da lì e riavvia PC Status.",
   },
   dash: {
     cpu: "Processore", gpu: "Scheda video", memory: "Memoria", usage: "Utilizzo", frequency: "Frequenza", power: "Consumo",
@@ -565,6 +571,7 @@ const ru: Dict = {
     pawnInstalling: "Установка…",
     pawnDone: "PawnIO установлен. Перезапуск датчиков…",
     pawnFailed: "Установка PawnIO отменена или не удалась.",
+    pawnOpened: "Открыта официальная страница PawnIO: установите его оттуда и перезапустите PC Status.",
   },
   dash: {
     cpu: "Процессор", gpu: "Видеокарта", memory: "Память", usage: "Загрузка", frequency: "Частота", power: "Мощность",
@@ -656,6 +663,7 @@ const zh: Dict = {
     pawnInstalling: "正在安装…",
     pawnDone: "PawnIO 已安装，正在重启传感器…",
     pawnFailed: "PawnIO 安装已取消或失败。",
+    pawnOpened: "已打开 PawnIO 官方页面：请从那里安装，然后重新启动 PC Status。",
   },
   dash: {
     cpu: "处理器", gpu: "显卡", memory: "内存", usage: "占用", frequency: "频率", power: "功耗",
@@ -747,6 +755,7 @@ const ja: Dict = {
     pawnInstalling: "インストール中…",
     pawnDone: "PawnIO をインストールしました。センサーを再起動しています…",
     pawnFailed: "PawnIO のインストールがキャンセルされたか、失敗しました。",
+    pawnOpened: "PawnIO の公式ページを開きました。そこからインストールし、PC Status を再起動してください。",
   },
   dash: {
     cpu: "プロセッサー", gpu: "グラフィックス", memory: "メモリ", usage: "使用率", frequency: "クロック", power: "消費電力",

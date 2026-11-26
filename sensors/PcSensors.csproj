@@ -15,7 +15,7 @@
     <!-- Metadatos del ejecutable (SignPath exige nombre y versión del producto) -->
     <Product>PC Status</Product>
     <AssemblyTitle>PC Status sensors</AssemblyTitle>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <Copyright>Copyright (c) 2026 Reingardo - MIT License</Copyright>
   </PropertyGroup>
   <ItemGroup>

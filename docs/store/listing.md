@@ -91,3 +91,21 @@ The package does not include or install any driver. LibreHardwareMonitor uses th
 The "Processes" tab can end user processes after a confirmation; critical system processes are protected and cannot be ended.
 
 No account or login is required. No personal data is collected; the speed test connects to speed.cloudflare.com only when the user starts it.
+
+---
+
+## Justificación de `allowElevation` (reenvío 0.2.1, tras el rechazo 10.6.3 del 26/11/2026)
+
+PC Status is an open-source hardware monitor. Source code: https://github.com/Reingardo/Pc-Status — Support: https://github.com/Reingardo/Pc-Status/issues
+
+WHAT CHANGED SINCE THE PREVIOUS SUBMISSION: in version 0.2.1 the app was re-architected for least privilege. The main app (window, speed test, process list) no longer runs elevated: it runs as a normal user (asInvoker). Only a small separate helper process, pc-sensors.exe, is started elevated, through the standard Windows UAC prompt.
+
+1) Why the product requires it. The core feature is showing CPU temperature, fan speeds and voltages. Windows exposes no public user-mode API for these values: they are only readable from hardware registers (CPU model-specific registers, SMBus and the motherboard's Super I/O chip). The app uses the open-source LibreHardwareMonitor library, which reads them through the signed PawnIO driver, and PawnIO only grants that access to processes running as administrator. Alternatives we explored: (a) WMI MSAcpi_ThermalZoneTemperature: not implemented on most desktop motherboards and it reports ACPI zones, not the CPU temperature; (b) Performance counters/PDH, DXGI and GPU vendor APIs: they give usage and GPU data without elevation, but not CPU package temperature, motherboard fans or voltages; (c) a Windows service: not possible in an MSIX package and it would need broader, permanent privileges; (d) no elevation at all: the app still works but without CPU temperature, fans and voltages, which is the main purpose of the product.
+
+2) Functionality that requires it: only the sensor reader (pc-sensors.exe) reading CPU temperature, motherboard fans, voltages and power. Nothing else in the app is elevated.
+
+3) Least privilege. The elevated helper only READS sensors. It does not write files or registry keys (it writes to no path at all), opens no network connections, starts no other processes and has no user interface. It exits as soon as the app closes. The user can decline the UAC prompt and the app keeps working with fewer sensors. The app does not install drivers: if PawnIO is missing, the button only opens its official website.
+
+4) Safeguards against misuse. The app and the helper communicate through a local named pipe with a random name per launch, created by the app as a single instance that rejects remote clients. The helper accepts only two fixed commands ("inventory" to re-read the hardware list and "quit"); it never executes arbitrary commands or paths received from outside. The whole code is open source and can be audited.
+
+5) Statement of assurance: we confirm that allowElevation is used only to start pc-sensors.exe to read hardware sensors as described above, and that the elevated process does not write to any path.

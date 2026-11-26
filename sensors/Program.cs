@@ -1,11 +1,32 @@
 // pc-sensors: lee el hardware con LibreHardwareMonitor y escribe una línea JSON
-// por segundo en stdout. La app Tauri la lee y la manda a la interfaz.
+// por segundo. La app Tauri la lee y la manda a la interfaz.
+//
+// Canal con la app:
+// - `--pipe <nombre>`: se conecta al named pipe \\.\pipe\<nombre> que crea la app.
+//   Es el modo normal: la app lanza este proceso con permisos de administrador (UAC)
+//   y un proceso elevado no puede heredar su stdin/stdout.
+// - sin `--pipe`: stdin/stdout (para probarlo a mano).
+// Este proceso solo LEE sensores: no escribe archivos, no abre conexiones de red
+// y termina en cuanto la app cierra el canal.
+using System.IO.Pipes;
 using System.Security.Principal;
 using System.Text.Json;
 using LibreHardwareMonitor.Hardware;
 
-var intervalMs = args.Length > 0 && int.TryParse(args[0], out var ms) ? ms : 1000;
+var pipeIdx = Array.IndexOf(args, "--pipe");
+var pipeName = pipeIdx >= 0 && pipeIdx + 1 < args.Length ? args[pipeIdx + 1] : null;
+var intervalMs = args.FirstOrDefault(a => int.TryParse(a, out _)) is { } msArg ? int.Parse(msArg) : 1000;
 var isAdmin = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+
+TextReader input = Console.In;
+TextWriter output = Console.Out;
+if (pipeName is not null)
+{
+    var pipe = new NamedPipeClientStream(".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
+    pipe.Connect(10_000); // la app ya está esperando; si no aparece, salir con error
+    input = new StreamReader(pipe);
+    output = new StreamWriter(pipe) { AutoFlush = false };
+}
 
 var computer = new Computer
 {
@@ -19,13 +40,20 @@ var computer = new Computer
 computer.Open();
 
 var json = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-var stdout = Console.Out;
 var computerLock = new object();
+var cts = new CancellationTokenSource();
 
 void Emit(object payload)
 {
     var line = JsonSerializer.Serialize(payload, json);
-    lock (stdout) { stdout.WriteLine(line); stdout.Flush(); }
+    try
+    {
+        lock (output) { output.WriteLine(line); output.Flush(); }
+    }
+    catch (IOException)
+    {
+        cts.Cancel(); // la app cerró el canal: terminar
+    }
 }
 
 void EmitInventory() => Task.Run(() =>
@@ -34,16 +62,18 @@ void EmitInventory() => Task.Run(() =>
     catch (Exception e) { Console.Error.WriteLine("[inventory] " + e.Message); }
 });
 
-// Órdenes por stdin: "inventory" = volver a detectar el hardware.
-// Si la app padre se cierra, stdin llega a EOF y salimos.
-var cts = new CancellationTokenSource();
+// Órdenes de la app: "inventory" = volver a detectar el hardware.
+// Si la app se cierra, el canal llega a EOF y salimos.
 _ = Task.Run(() =>
 {
     try
     {
         string? cmd;
-        while ((cmd = Console.In.ReadLine()) != null)
+        while ((cmd = input.ReadLine()) != null)
+        {
+            if (cmd.Trim() == "quit") break;
             if (cmd.Trim() == "inventory") EmitInventory();
+        }
     }
     catch { }
     cts.Cancel();

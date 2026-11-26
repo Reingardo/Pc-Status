@@ -33,7 +33,7 @@ cargo test --manifest-path src-tauri/Cargo.toml speedtest -- --ignored --nocaptu
 
 - En las terminales de las herramientas, refresca el PATH desde el registro antes de llamar a `cargo` o `dotnet`.
 - Cierra la app de desarrollo antes de compilar, o cargo da "Access is denied".
-- Las builds de release piden administrador (`app.manifest`, solo en release). La terminal de la herramienta no puede lanzarlas directamente: ábrelas con `explorer.exe` sobre el acceso directo `.lnk`.
+- La ventana NO pide administrador. Solo `pc-sensors.exe` se lanza elevado (UAC) y habla con la app por un named pipe (`src-tauri/src/sensors.rs`). En desarrollo el sidecar se lanza sin elevar. Es un requisito de la Microsoft Store (mínimo privilegio para `allowElevation`): no vuelvas a elevar la app entera.
 
 ## Modo demo (navegador)
 

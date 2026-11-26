@@ -10,7 +10,7 @@ const es = {
   window: { settings: "Ajustes", minimize: "Minimizar", maximize: "Maximizar", close: "Cerrar" },
   notices: {
     sensorsStopped: "El proceso de sensores se detuvo.",
-    needAdmin: "Ejecuta PC Status como administrador para ver temperaturas, ventiladores y consumo.",
+    needAdmin: "Acepta el permiso de administrador del lector de sensores (aviso de Windows) para ver temperaturas, ventiladores y consumo. Reinicia PC Status para volver a pedirlo.",
     pawnTitle: "Falta el driver PawnIO",
     pawnBody: "Sin él no se puede leer la temperatura de la CPU, los ventiladores ni los voltajes. Es el driver oficial que usa LibreHardwareMonitor; Windows te pedirá permiso para instalarlo.",
     pawnInstall: "Instalar PawnIO",
@@ -104,7 +104,7 @@ const en: Dict = {
   window: { settings: "Settings", minimize: "Minimize", maximize: "Maximize", close: "Close" },
   notices: {
     sensorsStopped: "The sensor process stopped.",
-    needAdmin: "Run PC Status as administrator to see temperatures, fans and power draw.",
+    needAdmin: "Allow the sensor reader to run as administrator (Windows prompt) to see temperatures, fans and power draw. Restart PC Status to be asked again.",
     pawnTitle: "The PawnIO driver is missing",
     pawnBody: "Without it, CPU temperature, fans and voltages can't be read. It's the official driver used by LibreHardwareMonitor; Windows will ask for permission to install it.",
     pawnInstall: "Install PawnIO",
@@ -196,7 +196,7 @@ const pt: Dict = {
   window: { settings: "Configurações", minimize: "Minimizar", maximize: "Maximizar", close: "Fechar" },
   notices: {
     sensorsStopped: "O processo de sensores parou.",
-    needAdmin: "Execute o PC Status como administrador para ver temperaturas, ventoinhas e consumo.",
+    needAdmin: "Permita que o leitor de sensores rode como administrador (aviso do Windows) para ver temperaturas, ventoinhas e consumo. Reinicie o PC Status para ser perguntado de novo.",
     pawnTitle: "Falta o driver PawnIO",
     pawnBody: "Sem ele não é possível ler a temperatura da CPU, as ventoinhas nem as tensões. É o driver oficial usado pelo LibreHardwareMonitor; o Windows pedirá permissão para instalá-lo.",
     pawnInstall: "Instalar PawnIO",
@@ -288,7 +288,7 @@ const fr: Dict = {
   window: { settings: "Paramètres", minimize: "Réduire", maximize: "Agrandir", close: "Fermer" },
   notices: {
     sensorsStopped: "Le processus des capteurs s'est arrêté.",
-    needAdmin: "Lancez PC Status en tant qu'administrateur pour voir les températures, les ventilateurs et la consommation.",
+    needAdmin: "Autorisez le lecteur de capteurs à s’exécuter en administrateur (invite Windows) pour voir les températures, ventilateurs et la consommation. Redémarrez PC Status pour que la demande réapparaisse.",
     pawnTitle: "Le pilote PawnIO est manquant",
     pawnBody: "Sans lui, impossible de lire la température du processeur, les ventilateurs et les tensions. C'est le pilote officiel utilisé par LibreHardwareMonitor ; Windows demandera l'autorisation de l'installer.",
     pawnInstall: "Installer PawnIO",
@@ -380,7 +380,7 @@ const de: Dict = {
   window: { settings: "Einstellungen", minimize: "Minimieren", maximize: "Maximieren", close: "Schließen" },
   notices: {
     sensorsStopped: "Der Sensorprozess wurde beendet.",
-    needAdmin: "Starte PC Status als Administrator, um Temperaturen, Lüfter und Leistungsaufnahme zu sehen.",
+    needAdmin: "Erlaube dem Sensor-Leser, als Administrator zu laufen (Windows-Abfrage), um Temperaturen, Lüfter und Leistungsaufnahme zu sehen. Starte PC Status neu, um erneut gefragt zu werden.",
     pawnTitle: "Der PawnIO-Treiber fehlt",
     pawnBody: "Ohne ihn können CPU-Temperatur, Lüfter und Spannungen nicht gelesen werden. Es ist der offizielle Treiber von LibreHardwareMonitor; Windows fragt nach der Erlaubnis zur Installation.",
     pawnInstall: "PawnIO installieren",
@@ -472,7 +472,7 @@ const it: Dict = {
   window: { settings: "Impostazioni", minimize: "Riduci a icona", maximize: "Ingrandisci", close: "Chiudi" },
   notices: {
     sensorsStopped: "Il processo dei sensori si è interrotto.",
-    needAdmin: "Esegui PC Status come amministratore per vedere temperature, ventole e consumo.",
+    needAdmin: "Consenti al lettore dei sensori di funzionare come amministratore (richiesta di Windows) per vedere temperature, ventole e consumi. Riavvia PC Status per ricevere di nuovo la richiesta.",
     pawnTitle: "Manca il driver PawnIO",
     pawnBody: "Senza di esso non è possibile leggere la temperatura della CPU, le ventole e le tensioni. È il driver ufficiale usato da LibreHardwareMonitor; Windows chiederà il permesso per installarlo.",
     pawnInstall: "Installa PawnIO",
@@ -564,7 +564,7 @@ const ru: Dict = {
   window: { settings: "Настройки", minimize: "Свернуть", maximize: "Развернуть", close: "Закрыть" },
   notices: {
     sensorsStopped: "Процесс датчиков остановлен.",
-    needAdmin: "Запустите PC Status от имени администратора, чтобы видеть температуры, вентиляторы и энергопотребление.",
+    needAdmin: "Разрешите модулю датчиков работать от имени администратора (запрос Windows), чтобы видеть температуры, вентиляторы и энергопотребление. Перезапустите PC Status, чтобы запрос появился снова.",
     pawnTitle: "Отсутствует драйвер PawnIO",
     pawnBody: "Без него нельзя считать температуру процессора, вентиляторы и напряжения. Это официальный драйвер LibreHardwareMonitor; Windows запросит разрешение на установку.",
     pawnInstall: "Установить PawnIO",
@@ -656,7 +656,7 @@ const zh: Dict = {
   window: { settings: "设置", minimize: "最小化", maximize: "最大化", close: "关闭" },
   notices: {
     sensorsStopped: "传感器进程已停止。",
-    needAdmin: "请以管理员身份运行 PC Status 以查看温度、风扇和功耗。",
+    needAdmin: "允许传感器读取程序以管理员身份运行（Windows 提示），即可查看温度、风扇和功耗。重新启动 PC Status 可再次请求。",
     pawnTitle: "缺少 PawnIO 驱动",
     pawnBody: "没有它就无法读取 CPU 温度、风扇和电压。这是 LibreHardwareMonitor 使用的官方驱动；安装时 Windows 会请求权限。",
     pawnInstall: "安装 PawnIO",
@@ -748,7 +748,7 @@ const ja: Dict = {
   window: { settings: "設定", minimize: "最小化", maximize: "最大化", close: "閉じる" },
   notices: {
     sensorsStopped: "センサープロセスが停止しました。",
-    needAdmin: "温度・ファン・消費電力を表示するには、PC Status を管理者として実行してください。",
+    needAdmin: "温度、ファン、消費電力を表示するには、センサー読み取りプロセスの管理者実行を許可してください（Windows の確認）。PC Status を再起動すると再度確認されます。",
     pawnTitle: "PawnIO ドライバーがありません",
     pawnBody: "これがないと CPU 温度、ファン、電圧を読み取れません。LibreHardwareMonitor が使う公式ドライバーです。インストール時に Windows が許可を求めます。",
     pawnInstall: "PawnIO をインストール",
